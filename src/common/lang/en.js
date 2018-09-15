@@ -1,0 +1,43 @@
+export default {
+  app: {
+    name: __SITE_TITLE__
+  },
+  route: {
+    dashboard: 'Dashboard',
+    settings: 'Settings',
+    icon: 'Icon',
+    editor: 'Editor',
+    markdown: 'Markdown',
+    upload: 'Upload',
+    backToTop: 'BackToTop',
+    draggable: 'Draggable',
+    charts: 'Charts',
+    example: 'Example',
+    table: 'Table',
+    form: 'Form',
+    user: 'User',
+    userList: 'User List',
+    userRole: 'User Role',
+    401: '401',
+    404: '404'
+  },
+  navbar: {
+    logOut: 'Log Out'
+  },
+  tagsView: {
+    refresh: 'Refresh',
+    close: 'Close',
+    closeOthers: 'Close Others',
+    closeAll: 'Close All'
+  },
+  login: {
+    title: 'Login',
+    logIn: 'Log in',
+    username: 'Username',
+    password: 'Password'
+  },
+  error: {
+    401: 'Sorry, you do not have permission to access this page. Please contact the administrator.',
+    404: 'Sorry, this page could not be found.'
+  }
+}
