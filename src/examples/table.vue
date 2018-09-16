@@ -73,7 +73,7 @@
 
       fetchData() {
         this.listLoading = true
-        this.ajax
+        this.$ajax
           .get('/articles')
           .then(res => {
             const ret = res.data

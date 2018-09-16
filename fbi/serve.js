@@ -8,6 +8,8 @@ const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const { initDb, initMiddlewares } = require('./helpers/mock')
 
+process.env.NODE_ENV = 'development'
+
 // Get task params
 const taskParams = ctx.task.getParams('serve')
 

@@ -2,8 +2,7 @@
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
       <h3 class="title">
-        {{ $t('app.name') }}
-        {{ $t('login.title') }}
+        {{ $t('app.name') }} {{ $t('login.title') }}
       </h3>
       <el-form-item prop="username">
         <span class="svg-container svg-container_login">
@@ -98,15 +97,15 @@
             this.loading = true
             this.$store
               .dispatch('user/login', this.loginForm)
-              .then(data => {
-                if (data) {
+              .then(res => {
+                if (res) {
                   this.loading = false
                   // set userinfo (role)
-                  this.$user.set(data)
+                  this.$user.set(res.data)
 
                   this.$router.push({ path: this.redirect || '/' })
                 } else {
-                  throw new Error(data.message)
+                  throw new Error(res.message)
                 }
               })
               .catch(err => {
@@ -121,7 +120,7 @@
     created() {
       if (this.isDev) {
         // 仅开发环境测试用
-        this.ajax.get('/users').then(res => {
+        this.$ajax.get('/users').then(res => {
           if (res.data.code === 0) {
             const user = res.data.data[0]
             this.loginForm.username = user.username
@@ -179,7 +178,7 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%,-50%);
+      transform: translate(-50%, -50%);
       width: 520px;
       max-width: 100%;
       padding: 35px 35px 15px 35px;

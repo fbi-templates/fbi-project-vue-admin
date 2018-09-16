@@ -1,89 +1,131 @@
 # Role Manager
 
-## How to Use?
+## Init the plugin
 
-1. Router config
+```js
+import RoleManager from 'path/to/role-manager'
 
-   > meta.permissions
+Vue.use(RoleManager, options)
+```
 
-   ```js
-   ...,
-   {
-     path: '/users',
-     name: 'users',
-     component: Users,
-     meta: {
-       permissions: [
-         {
-           // only 'admin' role can access this route, others will redirect to '401'
-           roles: ['admin'],
-           access: true,
-           redirect: '401'
-         }
-       ]
-     }
-   },
-   {
-     path: '/profile/:id',
-     name: 'profile',
-     component: Profile,
-     meta: {
-       permissions: [
-         {
-           // only 'registered' role and himself can access this role
-           role: 'registered',
-           access: (user, to) => user.id === to.params.id,
-           redirect: 'login'
-         },
-         {
-           // 'guest' role can't access this route, will redirect to login
-           role: 'guest',
-           access: false,
-           redirect: 'login'
-         }
-       ]
-     }
-   }
-   ```
+**options**
 
-1. Use the plugin
+- router: (required) vue router instance
+- redirect: (optional) default redirect name. default: 'login'
+- metaName: (optional) meta name in router config. default: 'roles'
+- fieldName: (optional) role field name in user info. default: 'roles'
+- debug: (optional) show debug info in console or not. default: false
 
-   ```js
-   import Vue from 'vue'
-   import router from './router'
-   import RoleManager from 'path/to/role-manager'
+## Router config
 
-   Vue.use(RoleManager, { router })
+```js
+{
+  path: '/home',
+  name: 'home,
+  component: home,
+  meta: {
+    roles
+  }
+}
+```
 
-   store.dispatch('user/current').then(userinfo => {
-     // set user info
-     Vue.prototype.$user.set(userinfo)
+**roles**
 
-     // start app
-     new Vue({
-       el: '#app',
-       router,
-       store,
-       render: h => h(App),
-     })
-   })
-   ```
+```js
+// String or Number
+roles: 'role1'
+roles: 1
 
-1. Use in component
+// Array of String or Number
+roles: ['role1', 'role2']
+roles: [1, 2]
 
-   ```js
-   this.$user.set(userinfo, { redirect: false })
-   this.$user.set()
-   ```
+// Object
+roles: {
+  allow: 'role1',
+  deny: 'role3',
+  redirect: 'login'
+}
 
-   ```html
-   <!-- add class 'is-disabled' for those are neither 'admin' nor 'editor' -->
-   <button v-role:class.is-disabled="['admin', 'editor']">Edit</button>
+roles: {
+  allow: ['role1', 'role2'],
+  deny: ['role3']
+}
 
-   <!-- only create the button for 'admin' -->
-   <button v-role="['admin']">Remove</button>
+// Function
+// user: user info
+// route: current router instance
+roles: {
+  allow: (user, route) => {
+    return ['role1', 'role2']
+  }
+}
 
-   <!-- same as above -->
-   <!-- action available value: 'remove', 'hidden , 'disable' -->
-   <button v-role:action.remove="['admin']">Remove</button>
-   ```
+roles: (user, route) => {
+  return {
+    allow: 'role1',
+    deny: 'role3',
+    redirect: '401'
+  }
+}
+```
+
+## Methods
+
+**set**
+
+```js
+// set current user's info
+Vue.prototype.$user.set(userinfo)
+
+this.$user.set(null)
+```
+
+**get**
+
+```js
+// get current user's info
+Vue.prototype.$user.get()
+
+this.$user.get()
+```
+
+**hasAccess**
+
+```js
+// check current user's role
+this.$user.hasAccess(['admin', 'editor', 'publisher'])
+```
+
+**addRoutes**
+
+```js
+const filteredNewRoutes = this.$user.addRoutes([...])
+// return filtered new route base on current user's role
+```
+
+## Directive
+
+**arg**
+
+- action
+- class
+
+**modifiers**
+
+- action: remove, hidden, disable
+- class: any string
+
+**Examples**
+
+```html
+<!-- only create the button for 'admin' -->
+<button v-role="['admin']">Remove</button>
+
+<!-- same as above -->
+<!-- action available value: 'remove', 'hidden , 'disable' -->
+<button v-role:action.remove="['admin']">Remove</button>
+
+<!-- add class 'my-class-name' for those are neither 'admin' nor 'editor' -->
+<button v-role:class.my-class-name="['admin', 'editor']">Edit</button>
+```

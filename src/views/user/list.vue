@@ -112,7 +112,7 @@
     methods: {
       fetchUsers() {
         this.listLoading = true
-        this.ajax
+        this.$ajax
           .get('/users')
           .then(res => {
             const ret = res.data
@@ -147,7 +147,7 @@
         // TODO
       },
       onSubmit() {
-        this.ajax
+        this.$ajax
           .put(`/users/${this.formData.id}`, this.formData)
           .then(response => {
             this.$message('保存成功!')

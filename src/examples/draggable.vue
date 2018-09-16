@@ -59,7 +59,7 @@
 
     methods: {
       fetchData() {
-        this.ajax
+        this.$ajax
           .get('/articles')
           .then(res => {
             const ret = res.data

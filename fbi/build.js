@@ -3,6 +3,8 @@ const webpack = require('webpack')
 const statsConfig = require('./config/stats.config')
 
 // Set environment
+process.env.NODE_ENV = 'production'
+
 ctx.isProd = true
 ctx.env = ctx.task.getParams('build', 't') ? 'test' : 'prod'
 ctx.logger.log(`Env : ${ctx.env}`)

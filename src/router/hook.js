@@ -5,6 +5,7 @@ NProgress.configure({
   showSpinner: false
 })
 
+// Define hooks
 const hooks = {
   beforeEach: [
     function progressStart (to, from, next) {
@@ -25,6 +26,7 @@ export default router => {
     return
   }
 
+  // Add hooks
   actions.map(action => {
     if (router[action]) {
       if (Array.isArray(hooks[action])) {

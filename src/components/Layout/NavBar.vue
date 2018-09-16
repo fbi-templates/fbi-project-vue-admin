@@ -42,7 +42,7 @@
       },
       logout() {
         this.$store.dispatch('user/logout').then(() => {
-          this.$user.set({})
+          this.$user.set(null)
           location.reload()
         })
       },

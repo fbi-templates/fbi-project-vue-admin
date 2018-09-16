@@ -3,6 +3,7 @@ import cookie from '@/utils/cookie'
 const getters = {}
 
 const state = {
+  routes: [],
   sidebar: {
     opened: !+cookie.get('sidebarStatus'),
     withoutAnimation: false
@@ -13,6 +14,9 @@ const state = {
 }
 
 const mutations = {
+  SET_ROUTES (state, routes) {
+    state.routes = routes
+  },
   TOGGLE_SIDEBAR: state => {
     if (state.sidebar.opened) {
       cookie.set('sidebarStatus', 1)
@@ -41,6 +45,9 @@ const mutations = {
 }
 
 const actions = {
+  setRoutes: ({ commit }, routes) => {
+    commit('SET_ROUTES', routes)
+  },
   toggleSideBar: ({ commit }) => {
     commit('TOGGLE_SIDEBAR')
   },
@@ -53,7 +60,7 @@ const actions = {
   setLanguage ({ commit }, language) {
     commit('SET_LANGUAGE', language)
   },
-  setSize({ commit }, size) {
+  setSize ({ commit }, size) {
     commit('SET_SIZE', size)
   }
 }
