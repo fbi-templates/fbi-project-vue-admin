@@ -3,7 +3,7 @@ const http = require('http')
 const express = require('express')
 const webpack = require('webpack')
 const proxy = require('http-proxy-middleware')
-const statsConfig = require('./config/stats.config')
+const statsConfig = require('./configs/stats.config')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const { initDb, initMiddlewares } = require('./helpers/mock')
@@ -21,7 +21,7 @@ ctx.logger.log(`Env: ${ctx.env}`)
 let startPort = taskParams.port || ctx.options.server.port
 
 // Webpack config
-const webpackConfig = require('./config/webpack.dev')
+const webpackConfig = require('./configs/webpack.dev')
 const webpackOptions = {
   publicPath: webpackConfig.output.publicPath,
   stats: statsConfig
