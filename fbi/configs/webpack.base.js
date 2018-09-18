@@ -21,6 +21,25 @@ if (!fs.existsSync(templateFilepath)) {
 const templateData = dataForCompile(false)
 const webpackData = dataForCompile()
 
+const devModulesPath = ctx.nodeModulesPaths[1] || './node_modules'
+
+// Babel
+const babelOptions = require('../helpers/babel-options')(
+  Object.assign(
+    {},
+    {
+      babelrc: false,
+      cacheDirectory: true,
+      plugins: [
+        '@babel/plugin-syntax-dynamic-import',
+        'babel-plugin-transform-vue-jsx'
+      ]
+    },
+    opts.scripts || {}
+  ),
+  devModulesPath
+)
+
 // remove warning:
 // DeprecationWarning: loaderUtils.parseQuery() received a non-string value which can be problematic, see https://github.com/webpack/loader-utils/issues/56
 // parseQuery() will be replaced with getOptions() in the next major version of loader-utils.
@@ -66,18 +85,7 @@ const config = {
           },
           {
             loader: 'babel-loader',
-            options: ctx.utils.assign(
-              {},
-              {
-                babelrc: false,
-                cacheDirectory: true,
-                plugins: [
-                  '@babel/plugin-syntax-dynamic-import',
-                  'babel-plugin-transform-vue-jsx'
-                ]
-              },
-              opts.scripts || {}
-            )
+            options: babelOptions
           }
         ]
       },
