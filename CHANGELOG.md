@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v1.1.2...v1.2.0) (2018-09-19)
+
+
+### Features
+
+* **fbi:** add 'exclude' options for eslint ([b14ac16](https://github.com/fbi-templates/fbi-project-vue-admin/commit/b14ac16))
+* **page:** check user's login status and roles, redirect to 'redirect url' ([39b6dfd](https://github.com/fbi-templates/fbi-project-vue-admin/commit/39b6dfd))
+* **role:** use 'vue-role-manager' package ([543380d](https://github.com/fbi-templates/fbi-project-vue-admin/commit/543380d))
+
+
+
 <a name="1.1.2"></a>
 ## [1.1.2](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v1.1.1...v1.1.2) (2018-09-18)
 
