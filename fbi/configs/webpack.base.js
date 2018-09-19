@@ -185,7 +185,8 @@ if (opts.lint.scripts.enable) {
     test: /\.(vue|js)$/,
     loader: 'eslint-loader',
     enforce: 'pre',
-    exclude: /node_modules/,
+    exclude: file =>
+      opts.lint.scripts.exclude.some(item => new RegExp(item).test(file)),
     options: ctx.utils.assign(
       {},
       {

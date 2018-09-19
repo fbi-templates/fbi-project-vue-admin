@@ -85,7 +85,8 @@ module.exports = {
         // fix: true,
         // emitError: true,
         // emitWarning: true
-      }
+      },
+      exclude: [/node_modules/]
     }
   },
 
