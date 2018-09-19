@@ -18,7 +18,7 @@ export default {
     user: 'User',
     userList: 'User List',
     userRole: 'User Role',
-    401: '401',
+    403: '403',
     404: '404'
   },
   navbar: {
@@ -37,7 +37,7 @@ export default {
     password: 'Password'
   },
   error: {
-    401: 'Sorry, you do not have permission to access this page. Please contact the administrator.',
+    403: 'Sorry, you do not have permission to access this page. Please contact the administrator.',
     404: 'Sorry, this page could not be found.'
   }
 }
