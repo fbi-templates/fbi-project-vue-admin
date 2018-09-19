@@ -74,15 +74,6 @@
       }
     },
 
-    watch: {
-      $route: {
-        handler: function(route) {
-          this.redirect = route.query && route.query.redirect
-        },
-        immediate: true,
-      },
-    },
-
     methods: {
       showPwd() {
         if (this.pwdType === 'password') {
@@ -101,9 +92,9 @@
                 if (res) {
                   this.loading = false
                   // set userinfo (role)
-                  this.$user.set(res.data)
+                  this.$vrm.setRoles(res.data.roles)
 
-                  this.$router.push({ path: this.redirect || '/' })
+                  this.$router.push(this.$route.query.redirect || '/')
                 } else {
                   throw new Error(res.message)
                 }
@@ -118,6 +109,18 @@
     },
 
     created() {
+      // 如果用户是否已登录，且有跳转URL，检查跳转URL的权限并跳转
+      this.$store.dispatch('user/hasLogin').then(hasLogin => {
+        if (hasLogin) {
+          const redirectTo = this.$route.query.redirect
+          const { access, redirect } = this.$vrm.hasAccessToRoute(redirectTo)
+          if (access) {
+            this.$router.push(redirectTo)
+          }
+        }
+      })
+
+      // For dev
       if (this.isDev) {
         // 仅开发环境测试用
         this.$ajax.get('/users').then(res => {
