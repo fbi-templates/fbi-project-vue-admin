@@ -11,8 +11,8 @@
 
 ## 特性
 
-- 权限验证：支持路由、页面区块、按钮的权限验证
-  [查看详情](src/common/role-manager/README.md)
+- 权限验证：支持路由、页面区块、按钮的权限验证。使
+  用[vue-role-manager](https://github.com/neikvon/vue-role-manager)。
 - 国际化支持
 - UI 尺寸设置
 - 简单的本地数据 Mock，对源代码无侵入，随开发服务器启动
@@ -71,14 +71,29 @@
   - `t/test` `{Boolean}` 测试环境
 - 别名: `b`
 - 示例:
-  - `fbi b -t // 构建到生产环境`
-  - `fbi b -p // 构建到测试环境`
+  - `fbi b // 构建到生产环境`
+  - `fbi b -p // 构建到生产环境`
+  - `fbi b -t // 构建到测试环境`
 
 ## 更新模板
 
-```bash
-$ fbi up vue-admin
-```
+1. 更新本地全局模板
+
+   ```bash
+   $ fbi up vue-admin
+   ```
+
+1. 更新项目使用的模板版本
+
+   ```bash
+   $ fbi use [版本号]  # 版本号可通过 fbi ls store 查看
+   ```
+
+1.  更新配置文件或任务
+
+   ```bash
+   $ fbi init -o/-t    # 原配置文件和任务会备份在fbi-bak目录
+   ```
 
 ## VSCode 断点调试
 

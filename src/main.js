@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
+import VRM from 'vue-role-manager'
 
 import 'normalize.css/normalize.css'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -12,20 +13,17 @@ import '@/common/icons'
 import i18n from '@/common/lang'
 import App from '@/App.vue'
 import ajax from '@/utils/ajax'
-import cookie from '@/utils/cookie'
 import * as filters from '@/common/filters'
-import RoleManager from '@/common/role-manager'
 
 // Vue config
 Vue.config.productionTip = false
 Vue.config.devtools = process.env.NODE_ENV === 'development'
 
-// RoleManager
-Vue.use(RoleManager, {
+Vue.use(VRM, {
   router,
   redirect: 'login',
   metaName: 'roles',
-  fieldName: 'roles',
+  whitelist: ['login', '401', '404'],
   debug: process.env.NODE_ENV === 'development'
 })
 
@@ -39,19 +37,19 @@ Vue.prototype.$ajax = ajax
 
 // ElementUI
 Vue.use(ElementUI, {
-  size: cookie.get('size') || 'small',
+  size: localStorage.getItem('size') || 'small',
   i18n: (key, value) => i18n.t(key, value)
 })
 
 store.dispatch('user/current').then(userinfo => {
   // Important!!
-  Vue.prototype.$user.set(userinfo)
+  Vue.prototype.$vrm.setRoles(userinfo ? userinfo.roles : null)
 
   // Dynamically add routes
   if (process.env.NODE_ENV === 'development') {
     // examples (only for dev env)
     const exampleRoutes = require('@/examples/routes').default
-    const filteredNewRoutes = Vue.prototype.$user.addRoutes(exampleRoutes)
+    const filteredNewRoutes = Vue.prototype.$vrm.addRoutes(exampleRoutes)
 
     // Update menu
     store.dispatch(
