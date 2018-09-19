@@ -12,8 +12,7 @@ export default [
     meta: {
       icon: 'user',
       roles: {
-        allow: ['admin'],
-        redirect: '401'
+        allow: ['admin']
       }
     },
     children: [

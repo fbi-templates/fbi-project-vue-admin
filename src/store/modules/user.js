@@ -70,6 +70,9 @@ const actions = {
   },
   list (ctx, params) {
     return userApi.info(params)
+  },
+  hasLogin (ctx) {
+    return ctx.state.token
   }
 }
 

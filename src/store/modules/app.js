@@ -1,16 +1,14 @@
-import cookie from '@/utils/cookie'
-
 const getters = {}
 
 const state = {
   routes: [],
   sidebar: {
-    opened: !+cookie.get('sidebarStatus'),
+    opened: !+localStorage.getItem('sidebarStatus'),
     withoutAnimation: false
   },
   device: 'desktop',
-  language: cookie.get('language') || 'en',
-  size: cookie.get('size') || 'medium'
+  language: localStorage.getItem('language') || 'en',
+  size: localStorage.getItem('size') || 'medium'
 }
 
 const mutations = {
@@ -19,15 +17,15 @@ const mutations = {
   },
   TOGGLE_SIDEBAR: state => {
     if (state.sidebar.opened) {
-      cookie.set('sidebarStatus', 1)
+      localStorage.setItem('sidebarStatus', 1)
     } else {
-      cookie.set('sidebarStatus', 0)
+      localStorage.setItem('sidebarStatus', 0)
     }
     state.sidebar.opened = !state.sidebar.opened
     state.sidebar.withoutAnimation = false
   },
   CLOSE_SIDEBAR: (state, withoutAnimation) => {
-    cookie.set('sidebarStatus', 1)
+    localStorage.setItem('sidebarStatus', 1)
     state.sidebar.opened = false
     state.sidebar.withoutAnimation = withoutAnimation
   },
@@ -36,11 +34,11 @@ const mutations = {
   },
   SET_LANGUAGE: (state, language) => {
     state.language = language
-    cookie.set('language', language)
+    localStorage.setItem('language', language)
   },
   SET_SIZE: (state, size) => {
     state.size = size
-    cookie.set('size', size)
+    localStorage.setItem('size', size)
   }
 }
 

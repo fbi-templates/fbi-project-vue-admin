@@ -10,7 +10,7 @@ export default [
     meta: {
       roles: {
         allow: ['admin'],
-        redirect: '401'
+        redirect: '403'
       }
     },
     hidden: true,
@@ -42,7 +42,7 @@ export default [
           icon: 'settings',
           roles: {
             allow: ['admin'],
-            redirect: '401'
+            redirect: '403'
           }
         }
       }
@@ -55,10 +55,10 @@ export default [
     hidden: true,
     children: [
       {
-        path: 'error-401',
+        path: 'error-403',
         component: () =>
-          import('@/views/error/401' /* webpackChunkName: "error" */),
-        name: '401',
+          import('@/views/error/403' /* webpackChunkName: "error" */),
+        name: '403',
         meta: {
           noCache: true
         }

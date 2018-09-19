@@ -15,8 +15,8 @@
       </el-table-column>
       <el-table-column label="操作" align="center" width="230" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button v-permission:class.is-disabled="['admin']" type="text">编辑</el-button>
-          <el-button v-permission:action.remove="['super-admin']" type="text">删除
+          <el-button v-roles:class.is-disabled="['admin']" type="text">编辑</el-button>
+          <el-button v-roles:action.remove="['super-admin']" type="text">删除
           </el-button>
         </template>
       </el-table-column>
