@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.1"></a>
+## [1.2.1](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v1.2.0...v1.2.1) (2018-09-29)
+
+
+### Bug Fixes
+
+* **ajax:** clean code ([0e20d22](https://github.com/fbi-templates/fbi-project-vue-admin/commit/0e20d22))
+* **navbar:** fix style issues ([51b5926](https://github.com/fbi-templates/fbi-project-vue-admin/commit/51b5926))
+* **table:** fix style issues ([99904b7](https://github.com/fbi-templates/fbi-project-vue-admin/commit/99904b7))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v1.1.2...v1.2.0) (2018-09-19)
 
