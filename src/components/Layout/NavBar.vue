@@ -4,7 +4,7 @@
 
     <breadcrumb></breadcrumb>
 
-    <el-dropdown v-if="userInfo && userInfo.username" class="avatar-container" trigger="click">
+    <el-dropdown v-if="userInfo && userInfo.username" class="avatar-container">
       <div class="avatar-wrapper">
         {{ userInfo.username }}
         <i class="el-icon-caret-bottom"></i>
@@ -57,6 +57,7 @@
     height: $nav-bar-height;
     line-height: $nav-bar-height;
     border-radius: 0px !important;
+    padding: 0 20px 0 0;
 
     .hamburger-container {
       line-height: 58px;
@@ -66,23 +67,15 @@
     }
 
     .avatar-container {
-      height: 50px;
-      display: inline-block;
-      position: absolute;
-      right: 35px;
+      height: 24px;
+      line-height: 24px;
+      float: right;
+      margin-top: 13px;
       .avatar-wrapper {
         cursor: pointer;
-        margin-top: 5px;
         position: relative;
-        .user-avatar {
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
-        }
+
         .el-icon-caret-bottom {
-          position: absolute;
-          right: -20px;
-          top: 25px;
           font-size: 12px;
         }
       }
