@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-table v-loading="listLoading" :data="allRoles" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table v-loading="listLoading" :data="allRoles" element-loading-text="Loading" fit highlight-current-row>
       <el-table-column align="center" label="序号" width="95">
         <template slot-scope="scope">
           {{ scope.$index }}
@@ -13,7 +13,7 @@
           {{ scope.row.name }}
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="230" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" width="120" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button v-roles:class.is-disabled="['admin']" type="text">编辑</el-button>
           <el-button v-roles:action.remove="['super-admin']" type="text">删除

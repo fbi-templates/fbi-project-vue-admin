@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-table v-loading="listLoading" :data="currentList" :height="tableHeight" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table v-loading="listLoading" :data="currentList" :height="tableHeight" element-loading-text="Loading" fit highlight-current-row>
       <el-table-column align="center" label="序号" width="95">
         <template slot-scope="scope">
           {{ scope.$index }}
@@ -28,7 +28,7 @@
           {{ scope.row.createdAt | datetimeFormat }}
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="180" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" width="120" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button type="text" @click="onEditClick(scope.row)">编辑</el-button>
           <el-button v-if="scope.row.status!='deleted'" type="text" @click="onDelClick(scope.row)">删除
@@ -139,12 +139,20 @@
         this.formData = null
       },
       onEditClick(user) {
-        this.formData = user
-        this.dialogTableVisible = true
-        this.fetchRoles()
+        if (this.$vrm.hasAccess(['super-admin'])) {
+          this.formData = user
+          this.dialogTableVisible = true
+          this.fetchRoles()
+        } else {
+          this.$message.warning("You don't have permission")
+        }
       },
       onDelClick(user) {
-        // TODO
+        if (this.$vrm.hasAccess(['super-admin'])) {
+          // TODO
+        } else {
+          this.$message.warning("You don't have permission")
+        }
       },
       onSubmit() {
         this.$ajax

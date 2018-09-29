@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-table v-loading="listLoading" :data="currentList" :height="tableHeight" element-loading-text="Loading" border fit highlight-current-row>
+    <el-table v-loading="listLoading" :data="currentList" :height="tableHeight" element-loading-text="Loading" fit highlight-current-row>
       <el-table-column align="center" label="序号" width="95">
         <template slot-scope="scope">
           {{ scope.$index + 1 }}
