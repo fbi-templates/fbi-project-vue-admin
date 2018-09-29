@@ -1,4 +1,4 @@
-# fbi-project-vue-admin （完善中）
+# fbi-project-vue-admin
 
 基于 [vue](https://github.com/vuejs/vue) 和
 [element](https://github.com/ElemeFE/element) 的管理系统模板。参考了强大的
