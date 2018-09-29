@@ -1,33 +1,37 @@
 import axios from 'axios'
+import router from '../router'
 
 // docs: https://github.com/mzabriskie/axios
 const instance = axios.create({
   baseURL: __APIROOT__,
-  timeout: 1 * 1000,
-  transformResponse: [
-    function (res) {
-      // 这里可以统一处理接口返回数据
-      try {
-        const data = JSON.parse(res)
-        // if (data.code == 0) {
-        //   return data.data
-        // } else {
-        //   throw new Error(data.data)
-        // }
-        return data
-      } catch (err) {
-        throw new Error(res)
+  timeout: 1 * 1000
+})
+
+if (window.localStorage.getItem('token')) {
+  axios.defaults.headers.common[
+    'Authorization'
+  ] = `Bearer ${window.localStorage.getItem('token')}`
+}
+
+// respone拦截器
+instance.interceptors.response.use(
+  response => {
+    return response
+  },
+  error => {
+    if (error.response) {
+      switch (error.response.status) {
+        case 401:
+          router.replace({
+            path: 'login',
+            query: {
+              redirect: router.currentRoute.fullPath
+            }
+          })
       }
     }
-  ]
-  // adapter: function (config) {
-  //   console.log('arguments:', arguments)
-  //   return new Promise(function (resolve, reject) {
-  //     const data = config.data
-  //     const headers = config.headers
-  //     resolve({ code: 0, data: 'aaaa' })
-  //   })
-  // }
-})
+    return Promise.reject(error.response)
+  }
+)
 
 export default instance
