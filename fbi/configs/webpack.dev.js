@@ -21,9 +21,9 @@ const config = {
     ]
   },
   output: {
-    path: path.join(root, opts.server.root, opts.paths.assets || 'assets'),
+    path: path.join(root, opts.server.root, opts.paths.assets),
     filename: 'js/[name].js',
-    publicPath: `/${opts.paths.assets || 'assets'}/`,
+    publicPath: `/${opts.paths.assets}/`,
     pathinfo: false
   },
   // For development, use cheap-module-eval-source-map. For production, use cheap-module-source-map.

@@ -110,7 +110,7 @@
 </script>
 
 <style scoped>
-  @import '../assets/css/vars';
+  @import '../vue-admin/assets/css/vars.css';
   $pager-height: 92px;
 
   .pagination-container {

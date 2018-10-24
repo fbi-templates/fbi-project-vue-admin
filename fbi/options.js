@@ -9,8 +9,24 @@ function resolve (dir) {
   return path.join(process.cwd(), dir)
 }
 
+const appName = 'museum'
+
 module.exports = {
-  appName: 'museum',
+  appName: appName,
+
+  // 常用路径设置
+  paths: {
+    // 主入口文件路径
+    main: 'src/main.js',
+    // 页面入口文件及其他需要拷贝到dist目录的文件放在这个目录
+    public: 'public',
+    // 静态资源构建目标目录
+    assets: '',
+    build: {
+      entry: 'src/routes.js',
+      publicPath: 'http://localhost:3000/'
+    }
+  },
 
   // 开发服务器配置
   server: {
@@ -45,10 +61,12 @@ module.exports = {
     },
     // 测试环境 `fbi b -t`
     test: {
+      ROUTE_NAME_PREFIX: appName,
       GRAPHQL_ENDPOINT: 'http://localhost:3000/graphql'
     },
     // 生产环境 `fbi b`
     prod: {
+      ROUTE_NAME_PREFIX: appName,
       GRAPHQL_ENDPOINT: 'http://localhost:3000/graphql'
     }
   },
@@ -127,15 +145,5 @@ module.exports = {
       // https://github.com/ai/browserslist#queries
       autoprefixer: targets
     }
-  },
-
-  // 常用路径设置
-  paths: {
-    // 主入口文件路径
-    main: 'src/main.js',
-    // 页面入口文件及其他需要拷贝到dist目录的文件放在这个目录
-    public: 'public',
-    // 静态资源构建目标目录
-    assets: 'assets'
   }
 }
