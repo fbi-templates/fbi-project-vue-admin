@@ -1,16 +1,21 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import hook from './hook'
+import Layout from '@/components/Layout'
 
-import basicRoutes from './modules/basic'
-import userRoutes from './modules/user'
+import routes from './routes'
 
 Vue.use(Router)
 
-const routes = [...userRoutes, ...basicRoutes]
-
 const router = new Router({
-  routes,
+  routes: [
+    {
+      path: '/',
+      component: Layout,
+      name: 'app',
+      children: routes
+    }
+  ],
   scrollBehavior: () => ({
     y: 0
   })
@@ -18,4 +23,4 @@ const router = new Router({
 
 hook(router)
 
-export default router
+export { router, routes }

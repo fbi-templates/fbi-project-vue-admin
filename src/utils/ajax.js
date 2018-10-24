@@ -1,5 +1,5 @@
 import axios from 'axios'
-import router from '../router'
+import { router } from '../router'
 
 // docs: https://github.com/mzabriskie/axios
 const instance = axios.create({

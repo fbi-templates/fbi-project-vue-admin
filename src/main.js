@@ -6,7 +6,7 @@ import 'normalize.css/normalize.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/main.css'
 
-import router from '@/router'
+import { router } from '@/router'
 import store from '@/store'
 
 import '@/common/icons'
@@ -14,6 +14,7 @@ import i18n from '@/common/lang'
 import App from '@/App.vue'
 import ajax from '@/utils/ajax'
 import * as filters from '@/common/filters'
+import { initApollo } from './utils/apollo'
 
 // Vue config
 Vue.config.productionTip = false
@@ -63,6 +64,7 @@ store.dispatch('user/current').then(userinfo => {
     router,
     store,
     i18n,
+    apolloProvider: initApollo(Vue),
     render: h => h(App)
   })
 })

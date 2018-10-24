@@ -4,14 +4,14 @@
     <template v-if="hasOneShowingChild(item.children) && !onlyOneChild.children && !item.alwaysShow">
       <a :href="onlyOneChild.path" target="_blank" @click="clickLink(onlyOneChild.path, $event)">
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown': !isNest}">
-          <item v-if="onlyOneChild.meta" :icon="onlyOneChild.meta.icon" :title="generateTitle(onlyOneChild.name)"></item>
+          <item :icon="onlyOneChild.meta ? onlyOneChild.meta.icon : ''" :title="generateTitle(onlyOneChild.name)"></item>
         </el-menu-item>
       </a>
     </template>
 
     <el-submenu v-else :index="item.name || item.path">
       <template slot="title">
-        <item v-if="item.meta" :icon="item.meta.icon" :title="generateTitle(item.name)"></item>
+        <item :icon="item.meta ? item.meta.icon : ''" :title="generateTitle(item.name)"></item>
       </template>
 
       <template v-for="child in item.children" v-if="!child.hidden">
@@ -19,7 +19,7 @@
 
         <a v-else :href="child.path" :key="child.name" target="_blank" @click="clickLink(child.path, $event)">
           <el-menu-item :index="resolvePath(child.path)">
-            <item v-if="child.meta" :icon="child.meta.icon" :title="generateTitle(child.name)"></item>
+            <item :icon="child.meta ? child.meta.icon : ''" :title="generateTitle(child.name)"></item>
           </el-menu-item>
         </a>
       </template>

@@ -1,4 +1,5 @@
 import ajax from '@/utils/ajax'
+import { query, mutate, subscribe } from '../utils/graphql'
 
 export default {
   login: data => ajax.post('/login', data),

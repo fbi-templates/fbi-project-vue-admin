@@ -10,12 +10,14 @@ function resolve (dir) {
 }
 
 module.exports = {
+  appName: 'museum',
+
   // 开发服务器配置
   server: {
     // 构建目标目录
     root: 'dist',
     host: 'localhost',
-    port: 8888,
+    port: 9001,
     proxy: {
       '/proxy': 'http://api.yourdomain.com'
     },
@@ -38,15 +40,16 @@ module.exports = {
     // 开发环境 `fbi s`
     dev: {
       // API前缀
-      __APIROOT__: '/mock-api'
+      __APIROOT__: '/mock-api',
+      GRAPHQL_ENDPOINT: 'http://localhost:3000/graphql'
     },
     // 测试环境 `fbi b -t`
     test: {
-      __APIROOT__: 'https://test.yourdomain.com'
+      GRAPHQL_ENDPOINT: 'http://localhost:3000/graphql'
     },
     // 生产环境 `fbi b`
     prod: {
-      __APIROOT__: 'https://prod.yourdomain.com'
+      GRAPHQL_ENDPOINT: 'http://localhost:3000/graphql'
     }
   },
 
@@ -100,7 +103,8 @@ module.exports = {
         '@babel/preset-env',
         {
           targets,
-          useBuiltIns: 'usage'
+          useBuiltIns: 'usage',
+          modules: false
           // debug: true
         }
       ]
