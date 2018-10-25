@@ -1,12 +1,12 @@
 export default [
   {
     path: 'list',
-    name: `${ROUTE_NAME_PREFIX}-List`,
+    name: `${APP_NAME}-list`,
     component: () => import('@/views/list' /* webpackChunkName: "list" */)
   },
   {
     path: 'form',
-    name: `${ROUTE_NAME_PREFIX}-Form`,
+    name: `${APP_NAME}-form`,
     component: () => import('@/views/form' /* webpackChunkName: "form" */)
   }
 ]

@@ -9,7 +9,7 @@ function resolve (dir) {
   return path.join(process.cwd(), dir)
 }
 
-const appName = 'museum'
+const appName = 'alpha'
 
 module.exports = {
   appName: appName,
@@ -23,7 +23,7 @@ module.exports = {
     // 静态资源构建目标目录
     assets: '',
     build: {
-      entry: 'src/routes.js',
+      entry: 'src/build.js',
       publicPath: 'http://localhost:3000/'
     }
   },
@@ -33,7 +33,7 @@ module.exports = {
     // 构建目标目录
     root: 'dist',
     host: 'localhost',
-    port: 9001,
+    port: 8888,
     proxy: {
       '/proxy': 'http://api.yourdomain.com'
     },
@@ -55,18 +55,18 @@ module.exports = {
     },
     // 开发环境 `fbi s`
     dev: {
-      // API前缀
+      APP_NAME: appName,
       __APIROOT__: '/mock-api',
       GRAPHQL_ENDPOINT: 'http://localhost:3000/graphql'
     },
     // 测试环境 `fbi b -t`
     test: {
-      ROUTE_NAME_PREFIX: appName,
+      APP_NAME: appName,
       GRAPHQL_ENDPOINT: 'http://localhost:3000/graphql'
     },
     // 生产环境 `fbi b`
     prod: {
-      ROUTE_NAME_PREFIX: appName,
+      APP_NAME: appName,
       GRAPHQL_ENDPOINT: 'http://localhost:3000/graphql'
     }
   },

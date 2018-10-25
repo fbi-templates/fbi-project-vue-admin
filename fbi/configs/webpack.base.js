@@ -1,26 +1,11 @@
-const fs = require('fs')
 const path = require('path')
 const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const AutoDllPlugin = require('autodll-webpack-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const dataForCompile = require('./data-for-compile')
 
 const opts = ctx.options
-const root = process.cwd()
-let templateFilepath = path.join(
-  root,
-  opts.paths.public || 'public',
-  'index.html'
-)
-if (!fs.existsSync(templateFilepath)) {
-  templateFilepath = templateFilepath.replace('.html', '.ejs')
-}
-
-const templateData = dataForCompile(false)
 const webpackData = dataForCompile()
-
 const devModulesPath = ctx.nodeModulesPaths[1] || './node_modules'
 
 // Babel
@@ -51,9 +36,7 @@ const config = {
     extensions: ['*', '.js', '.vue', '.css', '.json'],
     alias: opts.alias,
     // https://github.com/benmosher/eslint-plugin-import/issues/139#issuecomment-287183200
-    modules: ctx.nodeModulesPaths.concat([
-      path.resolve(__dirname, '..', 'src')
-    ])
+    modules: ctx.nodeModulesPaths.concat([path.resolve(__dirname, '..', 'src')])
   },
   resolveLoader: {
     modules: ctx.nodeModulesPaths
@@ -139,22 +122,6 @@ const config = {
   plugins: [
     new VueLoaderPlugin(),
     new webpack.DefinePlugin(webpackData),
-    new HtmlWebpackPlugin({
-      inject: true,
-      templateParameters: templateData,
-      template: templateFilepath,
-      filename: '../index.html',
-      cache: true
-    }),
-    new AutoDllPlugin({
-      debug: true,
-      inject: true,
-      path: 'js',
-      filename: '[hash].dll.js',
-      entry: {
-        vendor: opts.dllEntries || ['vue', 'vuex', 'vue-router', 'element-ui']
-      }
-    }),
     new webpack.ProgressPlugin(),
     new FriendlyErrorsWebpackPlugin()
   ],

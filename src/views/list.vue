@@ -19,7 +19,9 @@
       </el-table-column>
       <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button type="text">编辑</el-button>
+          <el-button type="text">
+            <router-link :to="{ name: `${$appName}-form` }">编辑</router-link>
+          </el-button>
           <el-button v-if="scope.row.status!='deleted'" type="text">删除
           </el-button>
         </template>
@@ -110,7 +112,7 @@
 </script>
 
 <style scoped>
-  @import '../vue-admin/assets/css/vars.css';
+  @import '@peak-stone/vue-admin/assets/css/vars.css';
   $pager-height: 92px;
 
   .pagination-container {

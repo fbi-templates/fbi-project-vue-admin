@@ -1,110 +1,38 @@
-# fbi-project-vue-admin
+# fbi-project-vue-admin (lib)
 
-基于 [vue](https://github.com/vuejs/vue) 和
-[element](https://github.com/ElemeFE/element) 的管理系统模板。参考了强大的
-[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)。
+该分支专为管理系统子系统设计，适合接入已存在系统的场景。
 
 ## 依赖
 
-- [fbi](https://github.com/AlloyTeam/fbi) `v3.0+`
-- [node](https://nodejs.org/en/) `v7.6+`
+- [fbi](https://github.com/AlloyTeam/fbi) `v3.2+`
+- [node](https://nodejs.org/en/) `v8.2+`
 
-## 特性
+## 说明
 
-- 权限验证：支持路由、页面区块、按钮的权限验证。使
-  用[vue-role-manager](https://github.com/neikvon/vue-role-manager)。
-- 国际化支持
-- UI 尺寸设置
-- 简单的本地数据 Mock，对源代码无侵入，随开发服务器启动
-- 多个参考示例，位于`src/examples`，不用担心，它们只在本地开发时可见，不会参与生
-  产构建
+### 初始化项目
 
-## 使用
+```bash
+fbi init vue-admin@lib -o
+```
 
-1. **添加模板**
+### 配置
 
-   ```bash
-   $ fbi add https://github.com/fbi-templates/fbi-project-vue-admin.git
-   ```
+**appName**: `fbi/options.js` L12
 
-1. **创建项目**
+**publicPath**: `fbi/options.js` L27
 
-   ```bash
-   $ cd path/to/empty-folder
-   $ fbi init -o vue-admin
-   ```
+### 全局对象
 
-1. **查看可用任务**
+**`$ajax`**
 
-   ```bash
-   $ fbi ls
-   ```
+**`$vrm`**
 
-1. **运行任务**
+**`$apollo`**
 
-   - 本地开发
-     ```bash
-     $ fbi s
-     ```
-   - 生产构建
-     ```bash
-     $ fbi b
-     ```
+**`$appName`**
 
-## 任务说明
+1. 路由 name 必须加上 `APP_NAME` 前缀, 参考: `src/routes.js`
+1. 路由跳转使用 name, 且加上前缀, 参考: `src/views/list.vue` L23
+1. 组件中获取 `appName`, `this.$appName`, 参考：`src/views/list.vue` L23
 
-### `serve`
-
-- 启动开发服务器
-- 别名: `s`
-- 示例:
-  - `fbi s`
-  - `fbi s -port=9999`
-    > 指定服务端口号 (如果要使用 VScode 调试，请记得修改 `.vscode/launch.json`
-    > 中的默认端口号 8888)
-
-### `build`
-
-- 生产构建
-- 参数:
-  - `p/prod` `{Boolean}` (默认) 生产环境
-  - `t/test` `{Boolean}` 测试环境
-- 别名: `b`
-- 示例:
-  - `fbi b // 构建到生产环境`
-  - `fbi b -p // 构建到生产环境`
-  - `fbi b -t // 构建到测试环境`
-
-## 更新模板
-
-1. 更新本地全局模板
-
-   ```bash
-   $ fbi up vue-admin
-   ```
-
-1. 更新项目使用的模板版本
-
-   ```bash
-   $ fbi use [版本号]  # 版本号可通过 fbi ls store 查看
-   ```
-
-1.  更新配置文件或任务
-
-   ```bash
-   $ fbi init -o/-t    # 原配置文件和任务会备份在fbi-bak目录
-   ```
-
-## VSCode 断点调试
-
-1. `fbi s`
-2. 在 VSCode 内按 F5 快捷键
-
-## 更多
-
-- [官方模板](https://github.com/fbi-templates)
-- [fbi 文档](https://neikvon.gitbooks.io/fbi/content/)
-
-## [CHANGELOG](CHANGELOG.md)
-
-## [MIT License](LICENSE)
+## 基础用法请参考 [README](https://github.com/fbi-templates/fbi-project-vue-admin/blob/master/README.md)

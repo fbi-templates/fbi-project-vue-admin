@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const postcssSafeParser = require('postcss-safe-parser')
-const webpackBaseConfig = require('./webpack.base-2')
+const webpackBaseConfig = require('./webpack.base')
 const postcssConfig = require('./postcss.config')
 
 const opts = ctx.options
