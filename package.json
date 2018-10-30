@@ -4,7 +4,7 @@
   "description": "Admin project template using Vue.js & ElementUI",
   "scripts": {},
   "dependencies": {
-    "@peak-stone/vue-admin": "^1.0.1"
+    "@peak-stone/vue-admin": "^1.1.0"
   },
   "devDependencies": {
     "@babel/core": "7.1.2",

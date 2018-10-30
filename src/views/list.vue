@@ -35,6 +35,8 @@
 </template>
 
 <script>
+  import gql from 'graphql-tag'
+
   export default {
     filters: {
       statusFilter(status) {
@@ -92,6 +94,25 @@
             this.loading = false
             this.$message.error(err.message || '数据拉取失败')
           })
+
+        // this.$apollo.query({
+        //   // 客户端名称 (必传。在main.js 里配置)
+        //   client: `${APP_NAME}`,
+        //   query: gql`query {
+        //     articles {
+        //       id
+        //       title
+        //     }
+        //   }`,
+        // })
+        // .then(res => {
+        //   this.listLoading = false
+        //   this.list = res.data.articles
+        // })
+        // .catch(err => {
+        //   this.loading = false
+        //   this.$message.error(err.message || '数据拉取失败')
+        // })
       },
 
       handleSizeChange(val) {
