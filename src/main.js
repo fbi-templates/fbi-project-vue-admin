@@ -20,6 +20,12 @@ vueAdmin(routes, langs, app)
         name: `${APP_NAME}`,
         // Graphql Server 绝对地址
         uri: 'http://localhost:5000/graphql/projects'
+      },
+      {
+        // 文件上传客户端
+        name: `${APP_NAME}-upload`,
+        uri: 'http://localhost:5000/graphql/projects',
+        upload: true
       }
     ])
   })

@@ -15,10 +15,7 @@ const babelOptions = require('../helpers/babel-options')(
     {
       babelrc: false,
       cacheDirectory: true,
-      plugins: [
-        '@babel/plugin-syntax-dynamic-import',
-        'babel-plugin-transform-vue-jsx'
-      ]
+      plugins: ['@babel/plugin-syntax-dynamic-import', 'babel-plugin-transform-vue-jsx']
     },
     opts.scripts || {}
   ),
@@ -92,9 +89,7 @@ const config = {
         loader: 'url-loader',
         options: {
           limit: 5000,
-          name: process.env.NODE_ENV === 'production'
-            ? 'img/[name].[hash:8].[ext]'
-            : 'img/[name].[ext]?[hash:8]'
+          name: process.env.NODE_ENV === 'production' ? 'img/[name].[hash:8].[ext]' : 'img/[name].[ext]?[hash:8]'
         }
       },
       {
@@ -102,9 +97,7 @@ const config = {
         loader: 'url-loader',
         options: {
           limit: 5000,
-          name: process.env.NODE_ENV === 'production'
-            ? 'media/[name].[hash:8].[ext]'
-            : 'media/[name].[ext]?[hash:8]'
+          name: process.env.NODE_ENV === 'production' ? 'media/[name].[hash:8].[ext]' : 'media/[name].[ext]?[hash:8]'
         }
       },
       {
@@ -112,19 +105,17 @@ const config = {
         loader: 'url-loader',
         options: {
           limit: 5000,
-          name: process.env.NODE_ENV === 'production'
-            ? 'fonts/[name].[hash:8].[ext]'
-            : 'fonts/[name].[ext]?[hash:8]'
+          name: process.env.NODE_ENV === 'production' ? 'fonts/[name].[hash:8].[ext]' : 'fonts/[name].[ext]?[hash:8]'
         }
+      },
+      {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader'
       }
     ]
   },
-  plugins: [
-    new VueLoaderPlugin(),
-    new webpack.DefinePlugin(webpackData),
-    new webpack.ProgressPlugin(),
-    new FriendlyErrorsWebpackPlugin()
-  ],
+  plugins: [new VueLoaderPlugin(), new webpack.DefinePlugin(webpackData), new webpack.ProgressPlugin(), new FriendlyErrorsWebpackPlugin()],
   performance: {
     hints: false
   },
@@ -152,8 +143,7 @@ if (opts.lint.scripts.enable) {
     test: /\.(vue|js)$/,
     loader: 'eslint-loader',
     enforce: 'pre',
-    exclude: file =>
-      opts.lint.scripts.exclude.some(item => new RegExp(item).test(file)),
+    exclude: file => opts.lint.scripts.exclude.some(item => new RegExp(item).test(file)),
     options: ctx.utils.assign(
       {},
       {
