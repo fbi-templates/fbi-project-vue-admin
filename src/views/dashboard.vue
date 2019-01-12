@@ -1,7 +1,5 @@
 <template>
-  <div class="dashboard-container">
-    Hi, {{ userInfo.username }} !
-  </div>
+  <div class="dashboard-container">Hi, {{ userInfo.username }} !</div>
 </template>
 
 <script>
@@ -9,6 +7,7 @@
 
   export default {
     name: 'Dashboard',
+
     computed: {
       ...mapState({
         userInfo: state => state.user.info,

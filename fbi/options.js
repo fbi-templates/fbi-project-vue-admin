@@ -10,6 +10,18 @@ function resolve (dir) {
 }
 
 module.exports = {
+  // 常用路径设置
+  paths: {
+    // 主入口文件路径
+    main: 'src/main.js',
+    // 页面入口文件及其他需要拷贝到dist目录的文件放在这个目录
+    public: 'public',
+    // 静态资源构建目标目录
+    assets: 'assets',
+    // 生产环境cdn
+    cdn: ''
+  },
+
   // 开发服务器配置
   server: {
     // 构建目标目录
@@ -23,7 +35,7 @@ module.exports = {
     mock: {
       // 是否开启
       enable: true,
-      // API 前缀，开发时应与 data.dev.__APIROOT__ 的值相同
+      // API 前缀，开发时应与 data.dev.APIROOT 的值相同
       prefix: '/mock-api'
     }
   },
@@ -33,20 +45,20 @@ module.exports = {
     // 所有环境
     all: {
       // 网站title
-      __SITE_TITLE__: 'Admin System'
+      SITE_TITLE: 'Admin System'
     },
     // 开发环境 `fbi s`
     dev: {
       // API前缀
-      __APIROOT__: '/mock-api'
+      APIROOT: '/mock-api'
     },
     // 测试环境 `fbi b -t`
     test: {
-      __APIROOT__: 'https://test.yourdomain.com'
+      APIROOT: 'https://test.yourdomain.com'
     },
     // 生产环境 `fbi b`
     prod: {
-      __APIROOT__: 'https://prod.yourdomain.com'
+      APIROOT: 'https://prod.yourdomain.com'
     }
   },
 
@@ -123,15 +135,5 @@ module.exports = {
       // https://github.com/ai/browserslist#queries
       autoprefixer: targets
     }
-  },
-
-  // 常用路径设置
-  paths: {
-    // 主入口文件路径
-    main: 'src/main.js',
-    // 页面入口文件及其他需要拷贝到dist目录的文件放在这个目录
-    public: 'public',
-    // 静态资源构建目标目录
-    assets: 'assets'
   }
 }

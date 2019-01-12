@@ -21,7 +21,6 @@ function build () {
     webpack(webpackConfig, (err, stats) => {
       if (err) {
         throw err
-        reject(err)
       }
 
       console.log(stats.toString(statsConfig))

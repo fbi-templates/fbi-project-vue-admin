@@ -1,0 +1,41 @@
+{
+  // editor
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+
+  // vetur
+  "vetur.format.styleInitialIndent": true,
+  "vetur.format.scriptInitialIndent": true,
+  "vetur.format.defaultFormatter.html": "prettyhtml",
+  "vetur.format.defaultFormatter.ts": "vscode-typescript",
+  "vetur.format.defaultFormatter.js": "vscode-typescript",
+  "vetur.format.defaultFormatterOptions": {
+    "wrapAttributes": true
+  },
+
+  // emmit
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "javascript": "javascriptreact"
+  },
+
+  // javascript
+  "typescript.format.enable": true,
+  "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
+  // prettier
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "prettier.eslintIntegration": true,
+  "prettier.disableLanguages": ["vue"],
+  "prettier.trailingComma": "none",
+  // "prettier.printWidth": 80,
+
+  // prettier conflicts with beautify
+  "beautify.ignore": [
+    "**/*.js",
+    "**/*.jsx"
+  ],
+}

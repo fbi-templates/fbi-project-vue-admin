@@ -1,44 +1,58 @@
 <template>
   <div class="app-container">
-    <el-table v-loading="listLoading" :data="currentList" :height="tableHeight" element-loading-text="Loading" fit highlight-current-row>
+    <el-table
+      v-loading="listLoading"
+      :data="currentList"
+      :height="tableHeight"
+      element-loading-text="Loading"
+      fit
+      highlight-current-row
+    >
       <el-table-column align="center" label="序号" width="95">
-        <template slot-scope="scope">
-          {{ scope.$index }}
-        </template>
+        <template slot-scope="scope">{{ scope.$index }}</template>
       </el-table-column>
-      <el-table-column label="用户名" prop="username" width="200">
-      </el-table-column>
+      <el-table-column label="用户名" prop="username" width="200"></el-table-column>
       <el-table-column label="角色" width="200">
         <template slot-scope="scope">
           <el-tag class="tag-role" v-for="role of scope.row.roles" :key="role">{{ role }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="邮箱" show-overflow-tooltip>
-        <template slot-scope="scope">
-          {{ scope.row.email }}
-        </template>
+        <template slot-scope="scope">{{ scope.row.email }}</template>
       </el-table-column>
       <el-table-column label="状态" width="120">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status ? 'success' : 'info'">{{ scope.row.status ? '已启用' : '已禁用' }}</el-tag>
+          <el-tag
+            :type="scope.row.status ? 'success' : 'info'"
+          >{{ scope.row.status ? '已启用' : '已禁用' }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="创建时间" width="180">
-        <template slot-scope="scope">
-          {{ scope.row.createdAt | datetimeFormat }}
-        </template>
+        <template slot-scope="scope">{{ scope.row.createdAt | datetimeFormat }}</template>
       </el-table-column>
       <el-table-column label="操作" align="center" width="120" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button type="text" @click="onEditClick(scope.row)">编辑</el-button>
-          <el-button v-if="scope.row.status!='deleted'" type="text" @click="onDelClick(scope.row)">删除
-          </el-button>
+          <el-button
+            v-if="scope.row.status!='deleted'"
+            type="text"
+            @click="onDelClick(scope.row)"
+          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <div class="pagination-container">
-      <el-pagination :current-page="listQuery.page" :page-sizes="[10, 20, 50, 100, 200, 500]" :page-size="listQuery.limit" :total="total" background layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+      <el-pagination
+        :current-page="listQuery.page"
+        :page-sizes="[10, 20, 50, 100, 200, 500]"
+        :page-size="listQuery.limit"
+        :total="total"
+        background
+        layout="total, sizes, prev, pager, next, jumper"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
     </div>
 
     <el-dialog v-if="formData" v-el-drag-dialog :visible.sync="dialogTableVisible" title="用户编辑">
@@ -73,7 +87,7 @@
 
   export default {
     filters: {
-      statusFilter(status) {
+      statusFilter (status) {
         const statusMap = {
           published: 'success',
           draft: 'gray',
@@ -85,23 +99,21 @@
 
     directives: { elDragDialog },
 
-    data() {
-      return {
-        list: null,
-        currentList: null,
-        listLoading: false,
-        dialogTableVisible: false,
-        total: 0,
-        listQuery: {
-          page: 0,
-          limit: 50,
-        },
-        formData: null,
-      }
-    },
+    data: () => ({
+      list: null,
+      currentList: null,
+      listLoading: false,
+      dialogTableVisible: false,
+      total: 0,
+      listQuery: {
+        page: 0,
+        limit: 50,
+      },
+      formData: null,
+    }),
 
     computed: {
-      tableHeight() {
+      tableHeight () {
         return window.innerHeight - 50 - 34 - 92
       },
       ...mapState({
@@ -110,7 +122,7 @@
     },
 
     methods: {
-      fetchUsers() {
+      fetchUsers () {
         this.listLoading = true
         this.$ajax
           .get('/users')
@@ -130,15 +142,15 @@
             this.$message.error(err.message || '数据拉取失败')
           })
       },
-      fetchRoles() {
+      fetchRoles () {
         if (!this.allRoles || this.allRoles.length <= 0) {
           return this.$store.dispatch('user/roles')
         }
       },
-      formReset() {
+      formReset () {
         this.formData = null
       },
-      onEditClick(user) {
+      onEditClick (user) {
         if (this.$vrm.hasAccess(['super-admin'])) {
           this.formData = user
           this.dialogTableVisible = true
@@ -147,14 +159,14 @@
           this.$message.warning("You don't have permission")
         }
       },
-      onDelClick(user) {
+      onDelClick (user) {
         if (this.$vrm.hasAccess(['super-admin'])) {
           // TODO
         } else {
           this.$message.warning("You don't have permission")
         }
       },
-      onSubmit() {
+      onSubmit () {
         this.$ajax
           .put(`/users/${this.formData.id}`, this.formData)
           .then(response => {
@@ -162,22 +174,22 @@
             this.formData = null
           })
       },
-      onCancel() {
+      onCancel () {
         this.dialogTableVisible = false
         this.formReset()
         this.$message('已取消!')
       },
-      handleSizeChange(val) {
+      handleSizeChange (val) {
         this.listQuery.limit = val
         // this.fetchData()
         this.pager()
       },
-      handleCurrentChange(val) {
+      handleCurrentChange (val) {
         this.listQuery.page = val
         // this.fetchData()
         this.pager()
       },
-      pager() {
+      pager () {
         this.total = this.list.length
         const start = this.listQuery.page * this.listQuery.limit
         const end = start + this.listQuery.limit
@@ -185,7 +197,7 @@
       },
     },
 
-    created() {
+    created () {
       this.fetchUsers()
     },
   }

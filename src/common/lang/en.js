@@ -1,6 +1,6 @@
 export default {
   app: {
-    name: __SITE_TITLE__
+    name: SITE_TITLE
   },
   route: {
     dashboard: 'Dashboard',

@@ -33,58 +33,56 @@
   export default {
     name: 'Settings',
 
-    data() {
-      return {
-        locals: {
-          en: {
-            settings: {
-              language: 'Switch Language',
-              size: 'UI Size',
-              sizeM: 'medium',
-              sizeS: 'small',
-              sizem: 'mini',
-            },
-          },
-          zh: {
-            settings: {
-              language: '切换语言',
-              size: 'UI尺寸',
-              sizeM: '大',
-              sizeS: '中',
-              sizem: '小',
-            },
+    data: () => ({
+      locals: {
+        en: {
+          settings: {
+            language: 'Switch Language',
+            size: 'UI Size',
+            sizeM: 'medium',
+            sizeS: 'small',
+            sizem: 'mini',
           },
         },
-      }
-    },
+        zh: {
+          settings: {
+            language: '切换语言',
+            size: 'UI尺寸',
+            sizeM: '大',
+            sizeS: '中',
+            sizem: '小',
+          },
+        },
+      },
+    }),
 
     computed: {
       lang: {
-        get() {
+        get () {
           return this.$store.state.app.language
         },
-        set(lang) {
+        set (lang) {
           this.$i18n.locale = lang
           this.$store.dispatch('app/setLanguage', lang)
         },
       },
       size: {
-        get() {
+        get () {
           return this.$store.state.app.size
         },
-        set(size) {
+        set (size) {
           this.$store.dispatch('app/setSize', size)
         },
       },
     },
 
     methods: {
-      onSizeChange() {
+      onSizeChange () {
         location.reload()
       }
     },
 
-    created() {
+    created () {
       if (!this.$i18n.getLocaleMessage('en')['settings']) {
         this.$i18n.mergeLocaleMessage('en', this.locals.en)
         this.$i18n.mergeLocaleMessage('zh', this.locals.zh)

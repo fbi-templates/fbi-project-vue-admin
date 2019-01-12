@@ -26,7 +26,7 @@ const config = {
     path: path.join(root, opts.server.root, opts.paths.assets || 'assets'),
     filename: 'js/[name].[contenthash:8].js',
     chunkFilename: 'js/[name].[contenthash:8].js',
-    publicPath: `./${opts.paths.assets || 'assets'}/`
+    publicPath: opts.paths.cdn || `./${opts.paths.assets || 'assets'}/`
   },
   // For development, use cheap-module-eval-source-map. For production, use cheap-module-source-map.
   devtool: ctx.options.sourcemap ? ctx.options.sourcemap[1] : false,

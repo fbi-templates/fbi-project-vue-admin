@@ -1,9 +1,7 @@
 <template>
   <div class="wrap">
     <h1>404</h1>
-    <h3>
-      {{ $t('error.404') }}
-    </h3>
+    <h3>{{ $t('error.404') }}</h3>
   </div>
 </template>
 

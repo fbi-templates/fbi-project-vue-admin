@@ -1,31 +1,51 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
-      <h3 class="title">
-        {{ $t('app.name') }} {{ $t('login.title') }}
-      </h3>
+    <el-form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="loginRules"
+      class="login-form"
+      auto-complete="on"
+      label-position="left"
+    >
+      <h3 class="title">{{ $t('app.name') }} {{ $t('login.title') }}</h3>
       <el-form-item prop="username">
         <span class="svg-container svg-container_login">
           <svg-icon icon-class="user"></svg-icon>
         </span>
-        <el-input v-model="loginForm.username" name="username" type="text" auto-complete="on" :placeholder="$t('login.username')"></el-input>
+        <el-input
+          v-model="loginForm.username"
+          name="username"
+          type="text"
+          auto-complete="on"
+          :placeholder="$t('login.username')"
+        ></el-input>
       </el-form-item>
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon-class="password"></svg-icon>
         </span>
-        <el-input :type="pwdType" v-model="loginForm.password" name="password" auto-complete="on" :placeholder="$t('login.password')" @keyup.enter.native="handleLogin"></el-input>
+        <el-input
+          :type="pwdType"
+          v-model="loginForm.password"
+          name="password"
+          auto-complete="on"
+          :placeholder="$t('login.password')"
+          @keyup.enter.native="handleLogin"
+        ></el-input>
         <span class="show-pwd" @click="showPwd">
           <svg-icon icon-class="eye"></svg-icon>
         </span>
       </el-form-item>
       <el-form-item>
-        <el-button :loading="loading" type="primary" style="width:100%;" @click.native.prevent="handleLogin">
-          {{ $t('login.logIn') }}
-        </el-button>
+        <el-button
+          :loading="loading"
+          type="primary"
+          style="width:100%;"
+          @click.native.prevent="handleLogin"
+        >{{ $t('login.logIn') }}</el-button>
       </el-form-item>
-      <div class="tips" v-if="isDev">
-        开发环境随机帐号
+      <div class="tips" v-if="isDev">开发环境随机帐号
         <p>{{ $t('login.username') }}: {{ loginForm.username }}</p>
         <p>{{ $t('login.password') }}: {{ loginForm.password }}</p>
       </div>
@@ -39,7 +59,7 @@
   export default {
     name: 'Login',
 
-    data() {
+    data () {
       const validateUsername = (rule, value, callback) => {
         if (!isvalidUsername(value)) {
           callback(new Error('请输入正确的用户名'))
@@ -75,14 +95,14 @@
     },
 
     methods: {
-      showPwd() {
+      showPwd () {
         if (this.pwdType === 'password') {
           this.pwdType = ''
         } else {
           this.pwdType = 'password'
         }
       },
-      handleLogin() {
+      handleLogin () {
         this.$refs.loginForm.validate(valid => {
           if (valid) {
             this.loading = true
@@ -108,7 +128,7 @@
       },
     },
 
-    created() {
+    created () {
       // 如果用户是否已登录，且有跳转URL，检查跳转URL的权限并跳转
       this.$store.dispatch('user/hasLogin').then(hasLogin => {
         if (hasLogin) {

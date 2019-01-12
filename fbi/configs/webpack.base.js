@@ -21,7 +21,8 @@ if (!fs.existsSync(templateFilepath)) {
 const templateData = dataForCompile(false)
 const webpackData = dataForCompile()
 
-const devModulesPath = ctx.nodeModulesPaths[1] || './node_modules'
+const devModulesPath =
+  ctx.nodeModulesPaths[1] || path.join(root, './node_modules')
 
 // Babel
 const babelOptions = require('../helpers/babel-options')(
@@ -51,9 +52,7 @@ const config = {
     extensions: ['*', '.js', '.vue', '.css', '.json'],
     alias: opts.alias,
     // https://github.com/benmosher/eslint-plugin-import/issues/139#issuecomment-287183200
-    modules: ctx.nodeModulesPaths.concat([
-      path.resolve(__dirname, '..', 'src')
-    ])
+    modules: ctx.nodeModulesPaths.concat([path.resolve(__dirname, '..', 'src')])
   },
   resolveLoader: {
     modules: ctx.nodeModulesPaths
@@ -96,7 +95,6 @@ const config = {
       {
         test: /\.svg$/,
         loader: 'svg-sprite-loader',
-        // include: [utils.resolve('src')],
         options: {
           symbolId: 'icon-[name]',
           extract: false,
@@ -109,9 +107,10 @@ const config = {
         loader: 'url-loader',
         options: {
           limit: 5000,
-          name: process.env.NODE_ENV === 'production'
-            ? 'img/[name].[hash:8].[ext]'
-            : 'img/[name].[ext]?[hash:8]'
+          name:
+            process.env.NODE_ENV === 'production'
+              ? 'img/[name].[hash:8].[ext]'
+              : 'img/[name].[ext]?[hash:8]'
         }
       },
       {
@@ -119,9 +118,10 @@ const config = {
         loader: 'url-loader',
         options: {
           limit: 5000,
-          name: process.env.NODE_ENV === 'production'
-            ? 'media/[name].[hash:8].[ext]'
-            : 'media/[name].[ext]?[hash:8]'
+          name:
+            process.env.NODE_ENV === 'production'
+              ? 'media/[name].[hash:8].[ext]'
+              : 'media/[name].[ext]?[hash:8]'
         }
       },
       {
@@ -129,10 +129,16 @@ const config = {
         loader: 'url-loader',
         options: {
           limit: 5000,
-          name: process.env.NODE_ENV === 'production'
-            ? 'fonts/[name].[hash:8].[ext]'
-            : 'fonts/[name].[ext]?[hash:8]'
+          name:
+            process.env.NODE_ENV === 'production'
+              ? 'fonts/[name].[hash:8].[ext]'
+              : 'fonts/[name].[ext]?[hash:8]'
         }
+      },
+      {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader'
       }
     ]
   },

@@ -3,7 +3,7 @@ import router from '../router'
 
 // docs: https://github.com/mzabriskie/axios
 const instance = axios.create({
-  baseURL: __APIROOT__,
+  baseURL: APIROOT,
   timeout: 1 * 1000
 })
 
