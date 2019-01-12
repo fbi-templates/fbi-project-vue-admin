@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v1.2.1...v1.3.0) (2019-01-12)
+
+
+### Features
+
+* add graphql support; add cdn path support; update dependencies; ([e78a38a](https://github.com/fbi-templates/fbi-project-vue-admin/commit/e78a38a))
+
+
+
 <a name="1.2.1"></a>
 ## [1.2.1](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v1.2.0...v1.2.1) (2018-09-29)
 
