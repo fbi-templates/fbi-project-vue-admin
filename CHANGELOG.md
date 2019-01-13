@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.1"></a>
+## [1.4.1](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v1.4.0...v1.4.1) (2019-01-13)
+
+
+
 <a name="1.4.0"></a>
 # [1.4.0](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v1.2.1...v1.4.0) (2019-01-12)
 
