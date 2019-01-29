@@ -2,7 +2,7 @@ const path = require('path')
 
 // 浏览器兼容配置 https://github.com/browserslist/browserslist#best-practices
 const targets = {
-  browsers: ['last 2 versions', 'safari >= 7', 'ie > 8']
+  browsers: ['last 2 versions', 'ie >= 10']
 }
 
 function resolve (dir) {
@@ -73,7 +73,7 @@ module.exports = {
   },
 
   // dll plugin配置
-  dllEntries: ['vue', 'vuex', 'vue-router', 'element-ui'],
+  dllEntries: false,
 
   // 指定Webpack不解析的模块（用于提高构建速度）
   // Docs: https://webpack.js.org/configuration/module/#module-noparse
@@ -112,7 +112,7 @@ module.exports = {
         '@babel/preset-env',
         {
           targets,
-          useBuiltIns: 'usage'
+          useBuiltIns: 'entry'
           // debug: true
         }
       ]

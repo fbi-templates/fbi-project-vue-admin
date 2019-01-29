@@ -7,6 +7,7 @@ const AutoDllPlugin = require('autodll-webpack-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const dataForCompile = require('./data-for-compile')
 
+const noop = function () {}
 const opts = ctx.options
 const root = process.cwd()
 let templateFilepath = path.join(
@@ -152,15 +153,17 @@ const config = {
       filename: '../index.html',
       cache: true
     }),
-    new AutoDllPlugin({
-      debug: true,
-      inject: true,
-      path: 'js',
-      filename: '[hash].dll.js',
-      entry: {
-        vendor: opts.dllEntries || ['vue', 'vuex', 'vue-router', 'element-ui']
-      }
-    }),
+    Array.isArray(opts.dllEntries)
+      ? new AutoDllPlugin({
+        debug: true,
+        inject: true,
+        path: 'js',
+        filename: '[hash].dll.js',
+        entry: {
+          vendor: opts.dllEntries
+        }
+      })
+      : noop,
     new webpack.ProgressPlugin(),
     new FriendlyErrorsWebpackPlugin()
   ],
