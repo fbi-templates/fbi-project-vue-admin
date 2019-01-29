@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v1.4.1...v1.5.0) (2019-01-29)
+
+
+### Bug Fixes
+
+* **fbi:** disable DllPlugin by default ([7638f0f](https://github.com/fbi-templates/fbi-project-vue-admin/commit/7638f0f))
+* **packages:** update dependencies ([96f79de](https://github.com/fbi-templates/fbi-project-vue-admin/commit/96f79de))
+
+
+### Features
+
+* structural optimization; add [@babel](https://github.com/babel)/polyfill; add nested routes examples; ([1237a7d](https://github.com/fbi-templates/fbi-project-vue-admin/commit/1237a7d))
+
+
+
 <a name="1.4.1"></a>
 ## [1.4.1](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v1.4.0...v1.4.1) (2019-01-13)
 
