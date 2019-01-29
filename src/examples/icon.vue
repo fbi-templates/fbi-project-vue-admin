@@ -1,15 +1,19 @@
 <template>
   <div class="icons-container">
     <p class="warn-content">
-      <a href="https://panjiachen.github.io/vue-element-admin-site/guide/advanced/icon.html" target="_blank">Add and use
-      </a>
+      <a
+        href="https://panjiachen.github.io/vue-element-admin-site/guide/advanced/icon.html"
+        target="_blank"
+      >Add and use</a>
     </p>
     <div class="icons-wrapper">
-      <div v-for="item of icons" :key="item" @click="handleClipboard(generateIconCode(item), $event)">
+      <div
+        v-for="item of icons"
+        :key="item"
+        @click="handleClipboard(generateIconCode(item), $event)"
+      >
         <el-tooltip placement="top">
-          <div slot="content">
-            {{ generateIconCode(item) }}
-          </div>
+          <div slot="content">{{ generateIconCode(item) }}</div>
           <div class="icon-item">
             <svg-icon :icon-class="item" class-name="disabled"></svg-icon>
             <span>{{ item }}</span>
@@ -27,8 +31,8 @@
     name: 'Icons',
 
     computed: {
-      icons() {
-        const req = require.context('../common/icons/svg', false, /\.svg$/)
+      icons () {
+        const req = require.context('@/assets/svg', false, /\.svg$/)
         const requireAll = requireContext => requireContext.keys()
 
         const re = /\.\/(.*)\.svg/
@@ -40,10 +44,10 @@
     },
 
     methods: {
-      generateIconCode(symbol) {
+      generateIconCode (symbol) {
         return `<svg-icon icon-class="${symbol}"></svg-icon>`
       },
-      handleClipboard(text, event) {
+      handleClipboard (text, event) {
         clipboard(text, event)
       },
     },

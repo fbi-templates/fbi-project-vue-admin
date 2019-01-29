@@ -1,17 +1,27 @@
 <template>
   <el-scrollbar wrap-class="scrollbar-wrapper">
-    <el-menu :show-timeout="200" :default-active="$route.path" :collapse="isCollapse" mode="vertical" background-color="#304156" text-color="#bfcbd9" active-text-color="#409EFF">
-
-      <sidebar-item v-for="route in allRoutes" :key="route.name" :item="route" :base-path="route.path">
-      </sidebar-item>
-
+    <el-menu
+      :show-timeout="200"
+      :default-active="$route.path"
+      :collapse="isCollapse"
+      mode="vertical"
+      background-color="#304156"
+      text-color="#bfcbd9"
+      active-text-color="#409EFF"
+    >
+      <sidebar-item
+        v-for="route in allRoutes"
+        :key="route.name"
+        :item="route"
+        :base-path="route.path"
+      ></sidebar-item>
     </el-menu>
   </el-scrollbar>
 </template>
 
 <script>
   import { mapState } from 'vuex'
-  import SidebarItem from './SidebarItem'
+  import SidebarItem from './sidebar-item'
 
   export default {
     components: {
@@ -23,10 +33,10 @@
         routes: state => state.app.routes,
         sidebar: state => state.app.sidebar,
       }),
-      allRoutes() {
+      allRoutes () {
         return this.routes.length > 0 ? this.routes : this.$router.options.routes
       },
-      isCollapse() {
+      isCollapse () {
         return !this.sidebar.opened
       },
     },

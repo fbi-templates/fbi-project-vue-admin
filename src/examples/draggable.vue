@@ -1,23 +1,45 @@
 <template>
   <div class="components-container">
-
     <h2>Draggable Panel</h2>
     <div class="draggable-panel-wrap">
-      <draggable-panel :key="1" :list="panelData.one" :options="options" class="draggable-panel todo" header-text="Todo" />
-      <draggable-panel :key="2" :list="panelData.two" :options="options" class="draggable-panel working" header-text="Working" />
-      <draggable-panel :key="3" :list="panelData.three" :options="options" class="draggable-panel done" header-text="Done" />
+      <draggable-panel
+        :key="1"
+        :list="panelData.one"
+        :options="options"
+        class="draggable-panel todo"
+        header-text="Todo"
+      />
+      <draggable-panel
+        :key="2"
+        :list="panelData.two"
+        :options="options"
+        class="draggable-panel working"
+        header-text="Working"
+      />
+      <draggable-panel
+        :key="3"
+        :list="panelData.three"
+        :options="options"
+        class="draggable-panel done"
+        header-text="Done"
+      />
     </div>
 
     <div class="draggable-list-wrap">
       <h2>Draggable List</h2>
-      <draggable-list :list1="listData.left" :list2="listData.right" list1-title="Left" list2-title="Right" />
+      <draggable-list
+        :list1="listData.left"
+        :list2="listData.right"
+        list1-title="Left"
+        list2-title="Right"
+      />
     </div>
   </div>
 </template>
 
 <script>
-  import DraggableList from '@/examples/components/DraggableList'
-  import DraggablePanel from '@/examples/components/DraggablePanel'
+  import DraggableList from '@/examples/components/draggable-list'
+  import DraggablePanel from '@/examples/components/draggable-panel'
 
   export default {
     name: 'DraggableDemo',
@@ -27,7 +49,7 @@
       DraggablePanel,
     },
 
-    data() {
+    data () {
       return {
         options: {
           group: 'mission',
@@ -58,7 +80,7 @@
     },
 
     methods: {
-      fetchData() {
+      fetchData () {
         this.$ajax
           .get('/articles')
           .then(res => {
@@ -77,7 +99,7 @@
       },
     },
 
-    created() {
+    created () {
       this.fetchData()
     },
   }

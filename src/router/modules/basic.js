@@ -1,4 +1,4 @@
-import Layout from '@/components/Layout'
+import Layout from '@/components/layout'
 
 export default [
   {
@@ -34,7 +34,7 @@ export default [
     component: Layout,
     children: [
       {
-        path: '',
+        path: 'index',
         component: () =>
           import('@/views/settings' /* webpackChunkName: "settings" */),
         name: 'settings',
@@ -70,6 +70,19 @@ export default [
         name: '404',
         meta: {
           noCache: true
+        }
+      }
+    ]
+  },
+  {
+    path: 'external-link',
+    component: Layout,
+    children: [
+      {
+        name: 'externalLink',
+        path: 'https://github.com/fbi-templates/fbi-project-vue-admin',
+        meta: {
+          icon: 'link'
         }
       }
     ]

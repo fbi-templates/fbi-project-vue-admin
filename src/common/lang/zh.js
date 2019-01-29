@@ -18,6 +18,8 @@ export default {
     user: '用户',
     userList: '用户列表',
     userRole: '用户角色',
+    externalLink: '外链',
+    nested: '嵌套路由',
     403: '403',
     404: '404'
   },

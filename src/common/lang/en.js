@@ -18,6 +18,8 @@ export default {
     user: 'User',
     userList: 'User List',
     userRole: 'User Role',
+    externalLink: 'External Link',
+    nested: 'Nested Routes',
     403: '403',
     404: '404'
   },

@@ -121,6 +121,10 @@
       }),
     },
 
+    created () {
+      this.fetchUsers()
+    },
+
     methods: {
       fetchUsers () {
         this.listLoading = true
@@ -197,9 +201,6 @@
       },
     },
 
-    created () {
-      this.fetchUsers()
-    },
   }
 </script>
 

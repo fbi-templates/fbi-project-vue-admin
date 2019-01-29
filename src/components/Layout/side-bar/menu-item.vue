@@ -12,8 +12,8 @@
         default: '',
       },
     },
-    render(h, context) {
-      const { icon, title } = context.props
+    render (h, context) {
+      const { icon, title, extra } = context.props
       const vnodes = []
 
       if (icon) {
@@ -21,8 +21,22 @@
       }
 
       if (title) {
-        vnodes.push(<span slot="title">{title}</span>)
+        vnodes.push(
+          <span class="title">
+            {title}
+          </span>
+        )
       }
+
+
+      if (extra) {
+        vnodes.push(
+          <span class="extra">
+            {extra}
+          </span>
+        )
+      }
+
       return vnodes
     },
   }

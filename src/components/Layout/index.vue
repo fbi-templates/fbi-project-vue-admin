@@ -20,10 +20,11 @@
 </template>
 
 <script>
-  import NavBar from './NavBar'
-  import SideBar from './SideBar'
-  import TagsView from './TagsView'
-  import AppMain from './AppMain'
+  import NavBar from './nav-bar'
+  import SideBar from './side-bar'
+  import TagsView from './tags-view'
+  import AppMain from './app-main'
+  import ResizeMixin from './mixin/resize-handler'
 
   export default {
     name: 'Layout',
@@ -35,14 +36,16 @@
       AppMain,
     },
 
+    mixins: [ResizeMixin],
+
     computed: {
-      sidebar() {
+      sidebar () {
         return this.$store.state.app.sidebar
       },
-      device() {
+      device () {
         return this.$store.state.app.device
       },
-      classObj() {
+      classObj () {
         return {
           hideSidebar: !this.sidebar.opened,
           openSidebar: this.sidebar.opened,
@@ -53,16 +56,16 @@
     },
 
     methods: {
-      handleClickOutside() {
-        this.$store.dispatch('CloseSideBar', { withoutAnimation: false })
-      },
+      handleClickOutside () {
+        this.$store.dispatch('app/closeSideBar', { withoutAnimation: false })
+      }
     },
   }
 </script>
 
-<style>
-  @import '../../assets/css/vars';
-  @import '../../assets/css/mixin';
+<style scoped>
+  @import "../../assets/css/vars";
+  @import "../../assets/css/mixin";
 
   .app-wrapper {
     @include clearfix;
@@ -108,26 +111,32 @@
       .sidebar-container {
         width: $sidebar-min-width !important;
       }
+
       .main-container {
         margin-left: $sidebar-min-width;
       }
-      .submenu-title-noDropdown {
+
+      >>> .submenu-title-noDropdown {
         padding-left: 10px !important;
         position: relative;
+
         .el-tooltip {
           padding: 0 10px !important;
         }
       }
-      .el-submenu {
+
+      >>> .el-submenu {
         overflow: hidden;
         & > .el-submenu__title {
           padding-left: 10px !important;
+
           .el-submenu__icon-arrow {
             display: none;
           }
         }
       }
-      .el-menu--collapse {
+
+      >>> .el-menu--collapse {
         .el-submenu {
           & > .el-submenu__title {
             & > span {
@@ -142,9 +151,48 @@
       }
     }
 
-    &.mobile.openSidebar {
-      position: fixed;
+    &.mobile {
+      .main-container {
+        margin-left: 0px;
+      }
+
+      .sidebar-container {
+        transition: transform 0.28s;
+        width: $sidebar-width !important;
+      }
+
+      &.hideSidebar {
+        .sidebar-container {
+          transition-duration: 0.3s;
+          transform: translate3d(-$sidebar-width, 0, 0);
+        }
+      }
+
+      .openSidebar {
+        position: fixed;
+        top: 0;
+      }
+    }
+
+    .drawer-bg {
+      background: #000;
+      opacity: 0.3;
+      width: 100%;
       top: 0;
+      height: 100%;
+      position: absolute;
+      z-index: 999;
     }
   }
 </style>
+
+<style>
+  .el-menu--vertical {
+    & > .el-menu {
+      .svg-icon {
+        margin-right: 10px;
+      }
+    }
+  }
+</style>
+

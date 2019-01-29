@@ -1,11 +1,22 @@
 <template>
   <div class="tags-view-container">
-    <scroll-pane ref="scrollPane" class="tags-view-wrapper">
-      <router-link v-for="tag in Array.from(visitedViews)" ref="tag" :class="isActive(tag)?'active':''" :to="tag" :key="tag.path" class="tags-view-item" @contextmenu.prevent.native="openMenu(tag,$event)">
+    <scroll-panel ref="scrollPanel" class="tags-view-wrapper">
+      <router-link
+        v-for="tag in Array.from(visitedViews)"
+        ref="tag"
+        :class="isActive(tag)?'active':''"
+        :to="tag"
+        :key="tag.path"
+        class="tags-view-item"
+        @contextmenu.prevent.native="openMenu(tag,$event)"
+      >
         {{ generateTitle(tag.title) }}
-        <span class="el-icon-close" @click.prevent.stop="closeSelectedTag(tag)" />
+        <span
+          class="el-icon-close"
+          @click.prevent.stop="closeSelectedTag(tag)"
+        />
       </router-link>
-    </scroll-pane>
+    </scroll-panel>
 
     <ul v-show="visible" :style="{left: left + 'px', top: top+'px'}" class="contextmenu">
       <li @click="refreshSelectedTag(selectedTag)">{{ $t('tagsView.refresh') }}</li>
@@ -17,12 +28,12 @@
 </template>
 
 <script>
-  import ScrollPane from '@/components/ScrollPane'
+  import ScrollPanel from '@/components/scroll-panel'
   import { generateTitle } from '@/utils/i18n'
 
   export default {
-    components: { ScrollPane },
-    data() {
+    components: { ScrollPanel },
+    data () {
       return {
         visible: false,
         top: 0,
@@ -31,16 +42,16 @@
       }
     },
     computed: {
-      visitedViews() {
+      visitedViews () {
         return this.$store.state.tagsView.visitedViews
       },
     },
     watch: {
-      $route() {
+      $route () {
         this.addViewTags()
         this.moveToCurrentTag()
       },
-      visible(value) {
+      visible (value) {
         if (value) {
           document.body.addEventListener('click', this.closeMenu)
         } else {
@@ -48,41 +59,41 @@
         }
       },
     },
-    mounted() {
+    mounted () {
       this.addViewTags()
     },
     methods: {
       generateTitle,
-      generateRoute() {
+      generateRoute () {
         if (this.$route.name) {
           return this.$route
         }
         return false
       },
-      isActive(route) {
+      isActive (route) {
         return route.path === this.$route.path
       },
-      addViewTags() {
+      addViewTags () {
         const route = this.generateRoute()
         if (!route) {
           return false
         }
         this.$store.dispatch('tagsView/addView', route)
       },
-      moveToCurrentTag() {
+      moveToCurrentTag () {
         const tags = this.$refs.tag
         this.$nextTick(() => {
           if (tags && tags.length > 0) {
             for (const tag of tags) {
               if (tag.to.path === this.$route.path) {
-                this.$refs.scrollPane.moveToTarget(tag.$el)
+                this.$refs.scrollPanel.moveToTarget(tag.$el)
                 break
               }
             }
           }
         })
       },
-      refreshSelectedTag(view) {
+      refreshSelectedTag (view) {
         this.$store.dispatch('tagsView/delCachedView', view).then(() => {
           const { fullPath } = view
 
@@ -91,7 +102,7 @@
           })
         })
       },
-      closeSelectedTag(view) {
+      closeSelectedTag (view) {
         this.$store
           .dispatch('tagsView/delView', view)
           .then(({ visitedViews }) => {
@@ -105,7 +116,7 @@
             }
           })
       },
-      closeOthersTags() {
+      closeOthersTags () {
         this.$router.push(this.selectedTag)
         this.$store
           .dispatch('tagsView/delOthersViews', this.selectedTag)
@@ -113,18 +124,18 @@
             this.moveToCurrentTag()
           })
       },
-      closeAllTags() {
+      closeAllTags () {
         this.$store.dispatch('tagsView/delAllViews')
         this.$router.push('/')
       },
-      openMenu(tag, e) {
+      openMenu (tag, e) {
         this.visible = true
         this.selectedTag = tag
         const offsetLeft = this.$el.getBoundingClientRect().left // container margin left
         this.left = e.clientX - offsetLeft + 15 // 15: margin right
         this.top = e.clientY
       },
-      closeMenu() {
+      closeMenu () {
         this.visible = false
       },
     },
@@ -132,7 +143,7 @@
 </script>
 
 <style scoped>
-  @import '../../assets/css/vars';
+  @import "../../assets/css/vars";
 
   .tags-view-container {
     height: $tags-view-height;
@@ -164,7 +175,7 @@
           color: #fff;
           border-color: #42b983;
           &::before {
-            content: '';
+            content: "";
             background: #fff;
             display: inline-block;
             width: 8px;
