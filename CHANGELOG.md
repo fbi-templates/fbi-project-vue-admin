@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.5.1"></a>
+## [1.5.1](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v1.5.0...v1.5.1) (2019-01-31)
+
+
+### Bug Fixes
+
+* **babel:** expose babel-loader's exclude options ([2c72f4b](https://github.com/fbi-templates/fbi-project-vue-admin/commit/2c72f4b))
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v1.4.1...v1.5.0) (2019-01-29)
 
