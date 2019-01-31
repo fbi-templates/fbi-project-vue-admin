@@ -37,7 +37,7 @@ const babelOptions = require('../helpers/babel-options')(
         'babel-plugin-transform-vue-jsx'
       ]
     },
-    opts.scripts || {}
+    opts.scripts.babel || {}
   ),
   devModulesPath
 )
@@ -75,7 +75,7 @@ const config = {
       // AND `<script>` blocks in `.vue` files
       {
         test: /\.js?$/,
-        exclude: file => /node_modules/.test(file) && !/\.vue\.js/.test(file),
+        exclude: opts.scripts.exclude || /node_modules/,
         use: [
           {
             loader: 'cache-loader',

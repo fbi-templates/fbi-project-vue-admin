@@ -106,17 +106,20 @@ module.exports = {
   // https://babeljs.io/docs/usage/api/#options
   // https://github.com/babel/babel-loader#options
   scripts: {
-    presets: [
-      [
-        // https://github.com/babel/babel/tree/master/packages/babel-preset-env#options
-        '@babel/preset-env',
-        {
-          targets,
-          useBuiltIns: 'entry'
-          // debug: true
-        }
+    exclude: file => /node_modules/.test(file) && !/\.vue\.js/.test(file),
+    babel: {
+      presets: [
+        [
+          // https://github.com/babel/babel/tree/master/packages/babel-preset-env#options
+          '@babel/preset-env',
+          {
+            targets,
+            useBuiltIns: 'entry'
+            // debug: true
+          }
+        ]
       ]
-    ]
+    }
   },
 
   // https://github.com/postcss/postcss-loader#options
