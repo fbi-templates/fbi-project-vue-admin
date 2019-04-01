@@ -1,5 +1,7 @@
 <template>
-  <div class="dashboard-container">Hi, {{ userInfo.username }} !</div>
+  <div class="dashboard-container">
+    <div v-if="userInfo">Hi, {{ userInfo.username }} !!!</div>
+  </div>
 </template>
 
 <script>

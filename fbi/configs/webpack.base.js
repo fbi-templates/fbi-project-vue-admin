@@ -45,7 +45,7 @@ const babelOptions = require('../helpers/babel-options')(
 // remove warning:
 // DeprecationWarning: loaderUtils.parseQuery() received a non-string value which can be problematic, see https://github.com/webpack/loader-utils/issues/56
 // parseQuery() will be replaced with getOptions() in the next major version of loader-utils.
-process.noDeprecation = true
+// process.noDeprecation = true
 
 const config = {
   target: 'web',
@@ -144,8 +144,8 @@ const config = {
     ]
   },
   plugins: [
-    new VueLoaderPlugin(),
     new webpack.DefinePlugin(webpackData),
+    new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       inject: true,
       templateParameters: templateData,
@@ -167,26 +167,9 @@ const config = {
     new webpack.ProgressPlugin(),
     new FriendlyErrorsWebpackPlugin()
   ],
-  performance: {
-    hints: false
-  },
-  node: {
-    // prevent webpack from injecting useless setImmediate polyfill because Vue
-    // source contains it (although only uses it if it's native).
-    setImmediate: false,
-    // prevent webpack from injecting mocks to Node native modules
-    // that does not make sense for the client
-    dgram: 'empty',
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty'
-  },
   cache: true,
   // Fail out on the first error
-  bail: true,
-  // Limit the number of parallel processed modules
-  parallelism: 1
+  bail: true
 }
 
 if (opts.lint.scripts.enable) {

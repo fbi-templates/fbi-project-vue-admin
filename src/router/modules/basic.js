@@ -8,10 +8,10 @@ export default [
       name: 'dashboard'
     },
     meta: {
-      roles: {
-        allow: ['admin'],
-        redirect: '403'
-      }
+      // roles: {
+      //   allow: ['admin'],
+      //   redirect: '403'
+      // }
     },
     hidden: true,
     children: [

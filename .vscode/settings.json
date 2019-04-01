@@ -12,6 +12,7 @@
   "vetur.format.defaultFormatterOptions": {
     "wrapAttributes": true
   },
+  "vetur.validation.style": false,
 
   // emmit
   "emmet.includeLanguages": {

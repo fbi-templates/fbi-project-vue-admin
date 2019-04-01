@@ -1,13 +1,13 @@
 process.env.NODE_ENV = 'production'
 const webpack = require('webpack')
-const statsConfig = require('./configs/stats.config')
+const env = require('./helpers/env')('build', 'prod')
+const formatStats = require('./helpers/format-stats')
 
 // Set environment
 process.env.NODE_ENV = 'production'
 
 ctx.isProd = true
-ctx.env = ctx.task.getParams('build', 't') ? 'test' : 'prod'
-ctx.logger.log(`Env : ${ctx.env}`)
+ctx.env = env.name
 
 // Set target root
 ctx.options.server.root = ctx.options.server.root || 'dist'
@@ -23,7 +23,7 @@ function build () {
         throw err
       }
 
-      console.log(stats.toString(statsConfig))
+      console.log(formatStats(stats, webpackConfig.output.path))
       resolve()
     })
   })

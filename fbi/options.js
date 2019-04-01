@@ -83,7 +83,7 @@ module.exports = {
 
   // 若要使用VSCode断点调试功能，请务必选择使用 cheap-module-source-map 或 source-map
   // [开发环境, 生产环境]
-  sourcemap: ['cheap-module-source-map', 'source-map'],
+  sourcemap: ['cheap-module-source-map', ''],
 
   // 静态检查
   lint: {
@@ -114,11 +114,25 @@ module.exports = {
           '@babel/preset-env',
           {
             targets,
+            corejs: '2',
             useBuiltIns: 'entry'
             // debug: true
           }
         ]
       ]
+    },
+    //  https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+    uglify: {
+      cache: true,
+      parallel: true,
+      sourceMap: true,
+      terserOptions: {
+        ecma: 5,
+        parse: {},
+        compress: {
+          drop_console: true
+        }
+      }
     }
   },
 
@@ -138,5 +152,12 @@ module.exports = {
       // https://github.com/ai/browserslist#queries
       autoprefixer: targets
     }
+  },
+
+  // https://webpack.docschina.org/configuration/performance/
+  performance: {
+    hints: 'warning',
+    maxEntrypointSize: 1000 * 1024, // KiB
+    maxAssetSize: 200 * 1024 // KiB
   }
 }

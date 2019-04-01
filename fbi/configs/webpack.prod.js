@@ -6,7 +6,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const postcssSafeParser = require('postcss-safe-parser')
 const webpackBaseConfig = require('./webpack.base')
 const postcssConfig = require('./postcss.config')
@@ -29,8 +29,12 @@ const config = {
     publicPath: opts.paths.cdn || `./${opts.paths.assets || 'assets'}/`
   },
   // For development, use cheap-module-eval-source-map. For production, use cheap-module-source-map.
-  devtool: ctx.options.sourcemap ? ctx.options.sourcemap[1] : false,
+  devtool: opts.sourcemap ? opts.sourcemap[1] : false,
+  performance: opts.performance || {},
   optimization: {
+    noEmitOnErrors: true,
+    namedModules: true,
+    namedChunks: true,
     // https://gist.github.com/sokra/1522d586b8e5c0f5072d7565c2bee693
     splitChunks: {
       chunks: 'async',
@@ -55,11 +59,7 @@ const config = {
       }
     },
     minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true // set to true if you want JS source maps
-      }),
+      new TerserPlugin(opts.scripts.uglify || {}),
       new OptimizeCSSAssetsPlugin({
         cssProcessorOptions: {
           parser: postcssSafeParser,
@@ -101,10 +101,7 @@ const config = {
         NODE_ENV: '"production"'
       }
     }),
-    new CleanWebpackPlugin([opts.server.root], {
-      root: root,
-      verbose: false
-    }),
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional

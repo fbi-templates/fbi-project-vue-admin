@@ -50,13 +50,10 @@ store.dispatch('user/current').then(userinfo => {
   if (process.env.NODE_ENV === 'development') {
     // examples (only for dev env)
     const exampleRoutes = require('@/examples/routes').default
-    const filteredNewRoutes = Vue.prototype.$vrm.addRoutes(exampleRoutes)
+    const { allRoutes } = Vue.prototype.$vrm.addRoutes(exampleRoutes)
 
     // Update menu
-    store.dispatch(
-      'app/setRoutes',
-      filteredNewRoutes.concat(router.options.routes)
-    )
+    store.dispatch('app/setRoutes', allRoutes)
   }
 
   new Vue({

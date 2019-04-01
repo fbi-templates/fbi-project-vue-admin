@@ -3,29 +3,25 @@ const http = require('http')
 const express = require('express')
 const webpack = require('webpack')
 const proxy = require('http-proxy-middleware')
-const statsConfig = require('./configs/stats.config')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const { initDb, initMiddlewares } = require('./helpers/mock')
-
+const env = require('./helpers/env')('serve')
 process.env.NODE_ENV = 'development'
 
-// Get task params
-const taskParams = ctx.task.getParams('serve')
-
 // Set environment
-ctx.env = taskParams.t ? 'test' : taskParams.p ? 'prod' : 'dev'
-ctx.logger.log(`Env: ${ctx.env}`)
+ctx.env = env.name
 
 // Service start port
-let startPort = taskParams.port || ctx.options.server.port
+let startPort = env.params.port || ctx.options.server.port
 
 // Webpack config
 const webpackConfig = require('./configs/webpack.dev')
 const webpackOptions = {
   publicPath: webpackConfig.output.publicPath,
-  stats: statsConfig
-  // logLevel: 'silent'
+  stats: 'minimal',
+  logLevel: 'error',
+  quiet: true
 }
 const mockEnabled = ctx.options.server.mock && ctx.options.server.mock.enable
 
@@ -80,12 +76,9 @@ function server (db) {
     )
     app.use(devMiddleWare)
     app.use(
-      require('webpack-hot-middleware')(
-        compiler,
-        {
-          // log: false
-        }
-      )
+      require('webpack-hot-middleware')(compiler, {
+        log: false
+      })
     )
 
     app.get('*', (req, res) => {
@@ -139,7 +132,9 @@ async function start () {
 
     if (db) {
       ctx.logger.log(
-        `Mock Server runing at http://${ctx.options.server.host}:${port}${ctx.options.server.mock.prefix}`
+        `Mock Server runing at http://${ctx.options.server.host}:${port}${
+          ctx.options.server.mock.prefix
+        }`
       )
     }
   } catch (err) {
