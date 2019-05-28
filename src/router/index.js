@@ -11,6 +11,8 @@ const routes = [...userRoutes, ...basicRoutes]
 
 const router = new Router({
   routes,
+  mode: 'history',
+  base: ROUTE_BASE,
   scrollBehavior: () => ({
     y: 0
   })

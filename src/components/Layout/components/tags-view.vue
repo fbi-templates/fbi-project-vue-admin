@@ -1,24 +1,24 @@
 <template>
   <div class="tags-view-container">
-    <scroll-panel ref="scrollPanel" class="tags-view-wrapper">
+    <scroll-panel class="tags-view-wrapper" ref="scrollPanel">
       <router-link
-        v-for="tag in Array.from(visitedViews)"
-        ref="tag"
         :class="isActive(tag)?'active':''"
-        :to="tag"
         :key="tag.path"
-        class="tags-view-item"
+        :to="tag"
         @contextmenu.prevent.native="openMenu(tag,$event)"
+        class="tags-view-item"
+        ref="tag"
+        v-for="tag in Array.from(visitedViews)"
       >
         {{ generateTitle(tag.title) }}
         <span
-          class="el-icon-close"
           @click.prevent.stop="closeSelectedTag(tag)"
+          class="el-icon-close"
         />
       </router-link>
     </scroll-panel>
 
-    <ul v-show="visible" :style="{left: left + 'px', top: top+'px'}" class="contextmenu">
+    <ul :style="{left: left + 'px', top: top+'px'}" class="contextmenu" v-show="visible">
       <li @click="refreshSelectedTag(selectedTag)">{{ $t('tagsView.refresh') }}</li>
       <li @click="closeSelectedTag(selectedTag)">{{ $t('tagsView.close') }}</li>
       <li @click="closeOthersTags">{{ $t('tagsView.closeOthers') }}</li>
@@ -33,54 +33,54 @@
 
   export default {
     components: { ScrollPanel },
-    data () {
+    data() {
       return {
         visible: false,
         top: 0,
         left: 0,
-        selectedTag: {},
+        selectedTag: {}
       }
     },
     computed: {
-      visitedViews () {
+      visitedViews() {
         return this.$store.state.tagsView.visitedViews
-      },
+      }
     },
     watch: {
-      $route () {
+      $route() {
         this.addViewTags()
         this.moveToCurrentTag()
       },
-      visible (value) {
+      visible(value) {
         if (value) {
           document.body.addEventListener('click', this.closeMenu)
         } else {
           document.body.removeEventListener('click', this.closeMenu)
         }
-      },
+      }
     },
-    mounted () {
+    mounted() {
       this.addViewTags()
     },
     methods: {
       generateTitle,
-      generateRoute () {
+      generateRoute() {
         if (this.$route.name) {
           return this.$route
         }
         return false
       },
-      isActive (route) {
+      isActive(route) {
         return route.path === this.$route.path
       },
-      addViewTags () {
+      addViewTags() {
         const route = this.generateRoute()
         if (!route) {
           return false
         }
         this.$store.dispatch('tagsView/addView', route)
       },
-      moveToCurrentTag () {
+      moveToCurrentTag() {
         const tags = this.$refs.tag
         this.$nextTick(() => {
           if (tags && tags.length > 0) {
@@ -93,60 +93,56 @@
           }
         })
       },
-      refreshSelectedTag (view) {
+      refreshSelectedTag(view) {
         this.$store.dispatch('tagsView/delCachedView', view).then(() => {
           const { fullPath } = view
 
           this.$router.replace({
-            path: '/redirect' + fullPath,
+            path: '/redirect' + fullPath
           })
         })
       },
-      closeSelectedTag (view) {
-        this.$store
-          .dispatch('tagsView/delView', view)
-          .then(({ visitedViews }) => {
-            if (this.isActive(view)) {
-              const latestView = visitedViews.slice(-1)[0]
-              if (latestView) {
-                this.$router.push(latestView)
-              } else {
-                this.$router.push('/')
-              }
+      closeSelectedTag(view) {
+        this.$store.dispatch('tagsView/delView', view).then(({ visitedViews }) => {
+          if (this.isActive(view)) {
+            const latestView = visitedViews.slice(-1)[0]
+            if (latestView) {
+              this.$router.push(latestView)
+            } else {
+              this.$router.push('/')
             }
-          })
+          }
+        })
       },
-      closeOthersTags () {
+      closeOthersTags() {
         this.$router.push(this.selectedTag)
-        this.$store
-          .dispatch('tagsView/delOthersViews', this.selectedTag)
-          .then(() => {
-            this.moveToCurrentTag()
-          })
+        this.$store.dispatch('tagsView/delOthersViews', this.selectedTag).then(() => {
+          this.moveToCurrentTag()
+        })
       },
-      closeAllTags () {
+      closeAllTags() {
         this.$store.dispatch('tagsView/delAllViews')
         this.$router.push('/')
       },
-      openMenu (tag, e) {
+      openMenu(tag, e) {
         this.visible = true
         this.selectedTag = tag
         const offsetLeft = this.$el.getBoundingClientRect().left // container margin left
         this.left = e.clientX - offsetLeft + 15 // 15: margin right
         this.top = e.clientY
       },
-      closeMenu () {
+      closeMenu() {
         this.visible = false
-      },
-    },
+      }
+    }
   }
 </script>
 
 <style scoped>
-  @import "../../assets/css/vars";
+  @import '../../../assets/css/vars';
 
   .tags-view-container {
-    height: $tags-view-height;
+    height: $tagsViewHeight;
     width: 100%;
     background: #fff;
     border-bottom: 1px solid #d8dce5;
@@ -175,7 +171,7 @@
           color: #fff;
           border-color: #42b983;
           &::before {
-            content: "";
+            content: '';
             background: #fff;
             display: inline-block;
             width: 8px;

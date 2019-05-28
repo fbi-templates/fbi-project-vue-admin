@@ -3,18 +3,18 @@
     <div class="editor-container">
       <!-- https://github.com/sparksuite/simplemde-markdown-editor -->
       <markdown
+        :height="300"
+        :z-index="20"
         id="contentEditor"
         ref="contentEditor"
         v-model="content"
-        :height="300"
-        :z-index="20"
       ></markdown>
     </div>
     <el-button
+      @click="markdown2Html"
+      icon="el-icon-document"
       style="margin-top:80px;"
       type="primary"
-      icon="el-icon-document"
-      @click="markdown2Html"
     >To HTML</el-button>
     <div v-html="html"></div>
   </div>
@@ -24,37 +24,37 @@
   import Markdown from '@/examples/components/markdown'
 
   const content = `
-    **this is test**
+      **this is test**
 
-    * vue
-    * element
-    * webpack
+      * vue
+      * element
+      * webpack
 
-    ## Simplemde
-    `
+      ## Simplemde
+      `
 
   export default {
     name: 'MarkdownEditor',
 
     components: {
-      Markdown,
+      Markdown
     },
 
-    data () {
+    data() {
       return {
         content: content,
-        html: '',
+        html: ''
       }
     },
 
     methods: {
-      markdown2Html () {
+      markdown2Html() {
         import('showdown').then(showdown => {
           const converter = new showdown.Converter()
           this.html = converter.makeHtml(this.content)
         })
-      },
-    },
+      }
+    }
   }
 </script>
 

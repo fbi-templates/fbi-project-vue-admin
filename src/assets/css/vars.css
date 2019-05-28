@@ -1,7 +1,31 @@
-$nav-bar-height: 50px;
-$tags-view-height: 34px;
+$navBarHeight: 50px;
+$tagsViewHeight: 34px;
 $appTitleHeight: 50px;
-$sidebar-width: 200px;
-$sidebar-min-width: 36px;
+
+$sideBarWidth: 210px;
+$sideBarMinWidth: 54px;
+
+$menuBg: #304156;
+$menuHover: #263445;
+$subMenuBg: #1f2d3d;
+$subMenuHover: #001528;
+
+$menuText: #bfcbd9;
+$menuActiveText: #409eff;
+$subMenuActiveText: #f4f4f5; /* https://github.com/ElemeFE/element/issues/12951 */
 
 /* color */
+
+:export {
+  navBarHeight: $navBarHeight;
+  tagsViewHeight: $tagsViewHeight;
+  sideBarWidth: $sideBarWidth;
+  sideBarMinWidth: $sideBarMinWidth;
+  menuBg: $menuBg;
+  menuHover: $menuHover;
+  subMenuBg: $subMenuBg;
+  subMenuHover: $subMenuHover;
+  menuText: $menuText;
+  menuActiveText: $menuActiveText;
+  subMenuActiveText: $subMenuActiveText;
+}

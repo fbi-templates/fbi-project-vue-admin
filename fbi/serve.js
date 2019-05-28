@@ -6,31 +6,29 @@ const proxy = require('http-proxy-middleware')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const { initDb, initMiddlewares } = require('./helpers/mock')
-const env = require('./helpers/env')('serve')
+const options = require('./helpers/options')()
+ctx.env = require('./helpers/env')(options, 'serve')
 process.env.NODE_ENV = 'development'
 
-// Set environment
-ctx.env = env.name
-
 // Service start port
-let startPort = env.params.port || ctx.options.server.port
+let startPort = ctx.env.params.port || options.server.port
 
 // Webpack config
 const webpackConfig = require('./configs/webpack.dev')
 const webpackOptions = {
   publicPath: webpackConfig.output.publicPath,
   stats: 'minimal',
-  logLevel: 'error',
+  logLevel: 'error', // 'silent'
   quiet: true
 }
-const mockEnabled = ctx.options.server.mock && ctx.options.server.mock.enable
+const mockEnabled = options.server.mock && options.server.mock.enable
 
 function server (db) {
   return new Promise((resolve, reject) => {
     const app = express()
 
     // proxy
-    const proxyOptions = ctx.options.server.proxy
+    const proxyOptions = options.server.proxy
     if (proxyOptions) {
       for (let p in proxyOptions) {
         app.use(
@@ -58,22 +56,15 @@ function server (db) {
     if (mockEnabled) {
       // log middleware
       app.use(
-        morgan(
-          ':method :url :status :res[content-length] - :response-time ms',
-          {
-            skip: (req, res) =>
-              !req.originalUrl.startsWith(ctx.options.server.mock.prefix)
-          }
-        )
+        morgan(':method :url :status :res[content-length] - :response-time ms', {
+          skip: (req, res) => !req.originalUrl.startsWith(options.server.mock.prefix)
+        })
       )
-      initMiddlewares(app, db, ctx.options.server.mock.prefix)
+      initMiddlewares(app, db, options.server.mock.prefix)
     }
 
     const compiler = webpack(webpackConfig)
-    const devMiddleWare = require('webpack-dev-middleware')(
-      compiler,
-      webpackOptions
-    )
+    const devMiddleWare = require('webpack-dev-middleware')(compiler, webpackOptions)
     app.use(devMiddleWare)
     app.use(
       require('webpack-hot-middleware')(compiler, {
@@ -84,9 +75,7 @@ function server (db) {
     app.get('*', (req, res) => {
       const fs = devMiddleWare.fileSystem
       devMiddleWare.waitUntilValid(() => {
-        res.end(
-          fs.readFileSync(path.join(webpackConfig.output.path, '../index.html'))
-        )
+        res.end(fs.readFileSync(path.join(webpackConfig.output.path, '../index.html')))
       })
     })
 
@@ -126,15 +115,11 @@ async function start () {
     const app = await server(db)
     const port = await listen(app)
 
-    ctx.logger.info(
-      `Server runing at http://${ctx.options.server.host}:${port}`
-    )
+    ctx.logger.info(`Server runing at http://${options.server.host}:${port}`)
 
     if (db) {
       ctx.logger.log(
-        `Mock Server runing at http://${ctx.options.server.host}:${port}${
-          ctx.options.server.mock.prefix
-        }`
+        `Mock Server runing at http://${options.server.host}:${port}${options.server.mock.prefix}`
       )
     }
   } catch (err) {

@@ -5,14 +5,14 @@
     props: {
       icon: {
         type: String,
-        default: '',
+        default: ''
       },
       title: {
         type: String,
-        default: '',
-      },
+        default: ''
+      }
     },
-    render (h, context) {
+    render(h, context) {
       const { icon, title, extra } = context.props
       const vnodes = []
 
@@ -21,23 +21,14 @@
       }
 
       if (title) {
-        vnodes.push(
-          <span class="title">
-            {title}
-          </span>
-        )
+        vnodes.push(<span class="title">{title}</span>)
       }
 
-
       if (extra) {
-        vnodes.push(
-          <span class="extra">
-            {extra}
-          </span>
-        )
+        vnodes.push(<span class="extra">{extra}</span>)
       }
 
       return vnodes
-    },
+    }
   }
 </script>

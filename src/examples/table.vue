@@ -1,33 +1,41 @@
 <template>
   <div class="app-container">
-    <el-table v-loading="listLoading" :data="currentList" :height="tableHeight" element-loading-text="Loading" fit highlight-current-row>
+    <el-table
+      :data="currentList"
+      :height="tableHeight"
+      element-loading-text="Loading"
+      fit
+      highlight-current-row
+      v-loading="listLoading"
+    >
       <el-table-column align="center" label="序号" width="95">
-        <template slot-scope="scope">
-          {{ scope.$index + 1 }}
-        </template>
+        <template slot-scope="scope">{{ scope.$index + 1 }}</template>
       </el-table-column>
-      <el-table-column label="标题" prop="title" width="300">
-      </el-table-column>
-      <el-table-column label="内容" prop="content_short" show-overflow-tooltip>
-      </el-table-column>
-      <el-table-column label="作者" prop="author" width="180">
-      </el-table-column>
+      <el-table-column label="标题" prop="title" width="300"></el-table-column>
+      <el-table-column label="内容" prop="content_short" show-overflow-tooltip></el-table-column>
+      <el-table-column label="作者" prop="author" width="180"></el-table-column>
       <el-table-column label="时间" width="160">
-        <template slot-scope="scope">
-          {{ scope.row.timestamp | datetimeFormat }}
-        </template>
+        <template slot-scope="scope">{{ scope.row.timestamp | datetimeFormat }}</template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
+      <el-table-column align="center" class-name="small-padding fixed-width" label="操作" width="150">
         <template slot-scope="scope">
           <el-button type="text">编辑</el-button>
-          <el-button v-if="scope.row.status!='deleted'" type="text">删除
-          </el-button>
+          <el-button type="text" v-if="scope.row.status!='deleted'">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <div class="pagination-container">
-      <el-pagination :current-page="listQuery.page" :page-sizes="[50, 100, 200, 500]" :page-size="listQuery.limit" :total="total" background layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+      <el-pagination
+        :current-page="listQuery.page"
+        :page-size="listQuery.limit"
+        :page-sizes="[50, 100, 200, 500]"
+        :total="total"
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+        background
+        layout="total, sizes, prev, pager, next, jumper"
+      />
     </div>
   </div>
 </template>
@@ -39,10 +47,10 @@
         const statusMap = {
           published: 'success',
           draft: 'gray',
-          deleted: 'danger',
+          deleted: 'danger'
         }
         return statusMap[status]
-      },
+      }
     },
 
     data() {
@@ -53,15 +61,15 @@
         total: 0,
         listQuery: {
           page: 0,
-          limit: 50,
-        },
+          limit: 50
+        }
       }
     },
 
     computed: {
       tableHeight() {
         return window.innerHeight - 50 - 34 - 92
-      },
+      }
     },
 
     methods: {
@@ -100,12 +108,12 @@
       handleCurrentChange(val) {
         this.listQuery.page = val
         this.fetchData()
-      },
+      }
     },
 
     created() {
       this.fetchData()
-    },
+    }
   }
 </script>
 

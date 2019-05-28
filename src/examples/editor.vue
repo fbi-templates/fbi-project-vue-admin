@@ -1,9 +1,15 @@
 <template>
   <div class="components-container">
-    <quill-editor v-model="content" ref="myQuillEditor" :options="editorOption" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" @ready="onEditorReady($event)">
-    </quill-editor>
+    <quill-editor
+      :options="editorOption"
+      @blur="onEditorBlur($event)"
+      @focus="onEditorFocus($event)"
+      @ready="onEditorReady($event)"
+      ref="myQuillEditor"
+      v-model="content"
+    ></quill-editor>
 
-    <el-button class="btn-get-content" type="primary" @click="getEditorContent">获取内容</el-button>
+    <el-button @click="getEditorContent" class="btn-get-content" type="primary">获取内容</el-button>
 
     <div class="result">
       <h3>预览</h3>
@@ -31,18 +37,18 @@
           // modules: {
           //   toolbar: '#toolbar'
           // },
-          placeholder: '请输入内容...',
+          placeholder: '请输入内容...'
           // readOnly: true,
           // theme: 'snow'
         },
-        content: '',
+        content: ''
       }
     },
 
     computed: {
       editor() {
         return this.$refs.myQuillEditor.quill
-      },
+      }
     },
 
     methods: {
@@ -61,12 +67,12 @@
       // }
       getEditorContent() {
         alert(this.content)
-      },
+      }
     },
 
     mounted() {
       console.log('this is current quill instance object', this.editor)
-    },
+    }
   }
 </script>
 

@@ -1,11 +1,11 @@
 <template>
   <div class="components-container">
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="form-wrap">
+    <el-form :model="ruleForm" :rules="rules" class="form-wrap" label-width="100px" ref="ruleForm">
       <el-form-item label="活动名称" prop="name">
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
       <el-form-item label="活动区域" prop="region">
-        <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
+        <el-select placeholder="请选择活动区域" v-model="ruleForm.region">
           <el-option label="区域一" value="shanghai"></el-option>
           <el-option label="区域二" value="beijing"></el-option>
         </el-select>
@@ -13,13 +13,23 @@
       <el-form-item label="活动时间" required>
         <el-col :span="11">
           <el-form-item prop="date1">
-            <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
+            <el-date-picker
+              placeholder="选择日期"
+              style="width: 100%;"
+              type="date"
+              v-model="ruleForm.date1"
+            ></el-date-picker>
           </el-form-item>
         </el-col>
-        <el-col class="line" :span="2"> ~ </el-col>
+        <el-col :span="2" class="line">~</el-col>
         <el-col :span="11">
           <el-form-item prop="date2">
-            <el-time-picker type="fixed-time" placeholder="选择时间" v-model="ruleForm.date2" style="width: 100%;"></el-time-picker>
+            <el-time-picker
+              placeholder="选择时间"
+              style="width: 100%;"
+              type="fixed-time"
+              v-model="ruleForm.date2"
+            ></el-time-picker>
           </el-form-item>
         </el-col>
       </el-form-item>
@@ -44,7 +54,7 @@
         <el-input type="textarea" v-model="ruleForm.desc"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
+        <el-button @click="submitForm('ruleForm')" type="primary">立即创建</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -63,45 +73,41 @@
           delivery: false,
           type: [],
           resource: '',
-          desc: '',
+          desc: ''
         },
         rules: {
           name: [
             { required: true, message: '请输入活动名称', trigger: 'blur' },
-            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' },
+            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
           ],
-          region: [
-            { required: true, message: '请选择活动区域', trigger: 'change' },
-          ],
+          region: [{ required: true, message: '请选择活动区域', trigger: 'change' }],
           date1: [
             {
               type: 'date',
               required: true,
               message: '请选择日期',
-              trigger: 'change',
-            },
+              trigger: 'change'
+            }
           ],
           date2: [
             {
               type: 'date',
               required: true,
               message: '请选择时间',
-              trigger: 'change',
-            },
+              trigger: 'change'
+            }
           ],
           type: [
             {
               type: 'array',
               required: true,
               message: '请至少选择一个活动性质',
-              trigger: 'change',
-            },
+              trigger: 'change'
+            }
           ],
-          resource: [
-            { required: true, message: '请选择活动资源', trigger: 'change' },
-          ],
-          desc: [{ required: true, message: '请填写活动形式', trigger: 'blur' }],
-        },
+          resource: [{ required: true, message: '请选择活动资源', trigger: 'change' }],
+          desc: [{ required: true, message: '请填写活动形式', trigger: 'blur' }]
+        }
       }
     },
     methods: {
@@ -117,8 +123,8 @@
       },
       resetForm(formName) {
         this.$refs[formName].resetFields()
-      },
-    },
+      }
+    }
   }
 </script>
 

@@ -1,18 +1,14 @@
-process.env.NODE_ENV = 'production'
 const webpack = require('webpack')
-const env = require('./helpers/env')('build', 'prod')
+const options = require('./helpers/options')()
 const formatStats = require('./helpers/format-stats')
-
-// Set environment
-process.env.NODE_ENV = 'production'
-
+ctx.env = require('./helpers/env')(options, 'build', 'prod')
 ctx.isProd = true
-ctx.env = env.name
+process.env.NODE_ENV = 'production'
 
 // Set target root
-ctx.options.server.root = ctx.options.server.root || 'dist'
+options.server.root = options.server.root || 'dist'
 
-ctx.logger.log(`Root: ${ctx.options.server.root}`)
+ctx.logger.log(`Root: ${options.server.root}`)
 
 const webpackConfig = require('./configs/webpack.prod')
 

@@ -10,12 +10,12 @@ const TerserPlugin = require('terser-webpack-plugin')
 const postcssSafeParser = require('postcss-safe-parser')
 const webpackBaseConfig = require('./webpack.base')
 const postcssConfig = require('./postcss.config')
-
-const opts = ctx.options
+const opts = require('../helpers/options')()
 const noop = function () {}
 const root = process.cwd()
 const staticPath = path.join(root, opts.paths.public)
 const needCopy = fs.existsSync(staticPath)
+const assetsPath = opts.paths.assets || 'assets'
 
 const config = {
   mode: 'production',
@@ -23,10 +23,10 @@ const config = {
     app: path.join(root, opts.paths.main || 'src/main.js')
   },
   output: {
-    path: path.join(root, opts.server.root, opts.paths.assets || 'assets'),
+    path: path.join(root, opts.server.root, assetsPath),
     filename: 'js/[name].[contenthash:8].js',
     chunkFilename: 'js/[name].[contenthash:8].js',
-    publicPath: opts.paths.cdn || `./${opts.paths.assets || 'assets'}/`
+    publicPath: ctx.env.data.publicPath || `/${assetsPath}/`
   },
   // For development, use cheap-module-eval-source-map. For production, use cheap-module-source-map.
   devtool: opts.sourcemap ? opts.sourcemap[1] : false,

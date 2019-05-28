@@ -1,9 +1,9 @@
 <template>
   <el-scrollbar
-    ref="scrollContainer"
     :vertical="false"
-    class="scroll-container"
     @wheel.native.prevent="handleScroll"
+    class="scroll-container"
+    ref="scrollContainer"
   >
     <slot/>
   </el-scrollbar>
@@ -14,18 +14,18 @@
 
   export default {
     name: 'ScrollPanel',
-    data () {
+    data() {
       return {
-        left: 0,
+        left: 0
       }
     },
     methods: {
-      handleScroll (e) {
+      handleScroll(e) {
         const eventDelta = e.wheelDelta || -e.deltaY * 40
         const $scrollWrapper = this.$refs.scrollContainer.$refs.wrap
         $scrollWrapper.scrollLeft = $scrollWrapper.scrollLeft + eventDelta / 4
       },
-      moveToTarget ($target) {
+      moveToTarget($target) {
         const $container = this.$refs.scrollContainer.$el
         const $containerWidth = $container.offsetWidth
         const $scrollWrapper = this.$refs.scrollContainer.$refs.wrap
@@ -33,14 +33,13 @@
         const $targetWidth = $target.offsetWidth
         if ($targetLeft > $containerWidth) {
           // tag in the right
-          $scrollWrapper.scrollLeft =
-            $targetLeft - $containerWidth + $targetWidth + padding
+          $scrollWrapper.scrollLeft = $targetLeft - $containerWidth + $targetWidth + padding
         } else {
           // tag in the left
           $scrollWrapper.scrollLeft = $targetLeft - padding
         }
-      },
-    },
+      }
+    }
   }
 </script>
 

@@ -14,47 +14,47 @@
     props: {
       value: {
         type: String,
-        default: '',
+        default: ''
       },
       id: {
         type: String,
         required: false,
-        default: 'markdown-editor-' + +new Date(),
+        default: 'markdown-editor-' + +new Date()
       },
       autofocus: {
         type: Boolean,
-        default: false,
+        default: false
       },
       placeholder: {
         type: String,
-        default: '',
+        default: ''
       },
       height: {
         type: Number,
-        default: 150,
+        default: 150
       },
       zIndex: {
         type: Number,
-        default: 10,
+        default: 10
       },
       toolbar: {
         type: Array,
         default: function() {
           return []
-        },
-      },
+        }
+      }
     },
     data() {
       return {
         simplemde: null,
-        hasChange: false,
+        hasChange: false
       }
     },
     watch: {
       value(val) {
         if (val === this.simplemde.value() && !this.hasChange) return
         this.simplemde.value(val)
-      },
+      }
     },
     mounted() {
       this.simplemde = new SimpleMDE({
@@ -64,10 +64,10 @@
         toolbar: this.toolbar.length > 0 ? this.toolbar : undefined,
         spellChecker: false,
         insertTexts: {
-          link: ['[', ']( )'],
+          link: ['[', ']( )']
         },
         // hideIcons: ['guide', 'heading', 'quote', 'image', 'preview', 'side-by-side', 'fullscreen'],
-        placeholder: this.placeholder,
+        placeholder: this.placeholder
       })
       if (this.value) {
         this.simplemde.value(this.value)
@@ -82,7 +82,7 @@
     destroyed() {
       this.simplemde.toTextArea()
       this.simplemde = null
-    },
+    }
   }
 </script>
 
@@ -112,10 +112,7 @@
     color: #2d3b4d;
   }
 
-  .simplemde-container
-    >>> .CodeMirror
-    .CodeMirror-code
-    .cm-formatting-link-string.cm-url {
+  .simplemde-container >>> .CodeMirror .CodeMirror-code .cm-formatting-link-string.cm-url {
     padding: 0 2px;
     color: #e61e1e;
   }

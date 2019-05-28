@@ -1,12 +1,12 @@
 <template>
   <div class="board-column">
-    <div class="board-column-header">
-      {{ headerText }}
-    </div>
+    <div class="board-column-header">{{ headerText }}</div>
     <draggable :list="list" :options="options" class="board-column-content">
-      <div v-for="element in list" :key="element.id" class="board-item">
-        {{ element.name }} {{ element.id }}
-      </div>
+      <div
+        :key="element.id"
+        class="board-item"
+        v-for="element in list"
+      >{{ element.name }} {{ element.id }}</div>
     </draggable>
   </div>
 </template>
@@ -18,27 +18,27 @@
     name: 'DraggablePanel',
 
     components: {
-      draggable,
+      draggable
     },
 
     props: {
       headerText: {
         type: String,
-        default: 'Header',
+        default: 'Header'
       },
       options: {
         type: Object,
         default() {
           return {}
-        },
+        }
       },
       list: {
         type: Array,
         default() {
           return []
-        },
-      },
-    },
+        }
+      }
+    }
   }
 </script>
 

@@ -29,9 +29,10 @@ function getEnvsData (envName, dataObj) {
   return {}
 }
 
-module.exports = (task, def, quiet) => {
-  const envs = getEnvs(ctx.options.data)
+module.exports = (options, task, def, quiet) => {
+  const envs = getEnvs(options.data)
   const taskParams = ctx.task.getParams(task)
+
   const params = {}
 
   let envName = def || 'dev'
@@ -55,9 +56,20 @@ module.exports = (task, def, quiet) => {
     ctx.logger.log('Environment:', ctx.utils.style.yellow(envName))
   }
 
+  const data = getEnvsData(envName, options.data)
+  const stringifyData = {}
+  Object.keys(data).map(item => {
+    if (typeof item === 'string') {
+      stringifyData[item] = JSON.stringify(data[item])
+    } else {
+      stringifyData[item] = item
+    }
+  })
+
   return {
     name: envName,
-    data: getEnvsData(envName, ctx.options.data),
-    params
+    params,
+    data,
+    stringifyData
   }
 }

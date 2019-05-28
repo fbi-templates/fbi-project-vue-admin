@@ -15,7 +15,7 @@
 
 <template>
   <section class="components-container">
-    <el-button type="primary" @click="toggleShow">
+    <el-button @click="toggleShow" type="primary">
       {{ $t('uploadText') }}
       <i class="el-icon-upload el-icon--right"></i>
     </el-button>
@@ -24,7 +24,19 @@
       Docs:
     https://github.com/dai-siki/vue-image-crop-upload/blob/master/README.md#props
     -->
-    <image-crop-upload field="img" v-model="show" :width="300" :height="300" url="/upload" :params="params" :headers="headers" img-format="png" @crop-success="cropSuccess" @crop-upload-success="cropUploadSuccess" @crop-upload-fail="cropUploadFail"></image-crop-upload>
+    <image-crop-upload
+      :headers="headers"
+      :height="300"
+      :params="params"
+      :width="300"
+      @crop-success="cropSuccess"
+      @crop-upload-fail="cropUploadFail"
+      @crop-upload-success="cropUploadSuccess"
+      field="img"
+      img-format="png"
+      url="/upload"
+      v-model="show"
+    ></image-crop-upload>
 
     <img :src="imgDataUrl">
 
@@ -34,8 +46,14 @@
       http://kazupon.github.io/vue-i18n/guide/interpolation.html#advanced-usage
       -->
       <i18n path="tips" tag="p">
-        <span place="br"><br></span>
-        <a place="link" href="https://github.com/dai-siki/vue-image-crop-upload/blob/master/README.md#usage" target="blank">https://github.com/dai-siki/vue-image-crop-upload/blob/master/README.md#usage</a>
+        <span place="br">
+          <br>
+        </span>
+        <a
+          href="https://github.com/dai-siki/vue-image-crop-upload/blob/master/README.md#usage"
+          place="link"
+          target="blank"
+        >https://github.com/dai-siki/vue-image-crop-upload/blob/master/README.md#usage</a>
       </i18n>
     </div>
   </section>
@@ -48,7 +66,7 @@
     name: 'ImageUpload',
 
     components: {
-      ImageCropUpload,
+      ImageCropUpload
     },
 
     data() {
@@ -56,12 +74,12 @@
         show: false,
         params: {
           token: '123456798',
-          name: 'avatar',
+          name: 'avatar'
         },
         headers: {
-          smail: '*_~',
+          smail: '*_~'
         },
-        imgDataUrl: '', // the datebase64 url of created image
+        imgDataUrl: '' // the datebase64 url of created image
       }
     },
 
@@ -82,11 +100,9 @@
       },
 
       cropUploadFail(status, field) {
-        console.log(
-          `[image-crop-upload] upload fail! status: ${status}; field: ${field}`
-        )
-      },
-    },
+        console.log(`[image-crop-upload] upload fail! status: ${status}; field: ${field}`)
+      }
+    }
   }
 </script>
 

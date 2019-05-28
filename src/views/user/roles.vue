@@ -1,11 +1,11 @@
 <template>
   <div class="app-container">
     <el-table
-      v-loading="listLoading"
       :data="allRoles"
       element-loading-text="Loading"
       fit
       highlight-current-row
+      v-loading="listLoading"
     >
       <el-table-column align="center" label="序号" width="95">
         <template slot-scope="scope">{{ scope.$index }}</template>
@@ -14,10 +14,10 @@
       <el-table-column label="角色名">
         <template slot-scope="scope">{{ scope.row.name }}</template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="120" class-name="small-padding fixed-width">
+      <el-table-column align="center" class-name="small-padding fixed-width" label="操作" width="120">
         <template slot-scope="scope">
-          <el-button v-roles:class.is-disabled="['admin']" type="text">编辑</el-button>
-          <el-button v-roles:action.remove="['super-admin']" type="text">删除</el-button>
+          <el-button type="text" v-roles:class.is-disabled="['admin']">编辑</el-button>
+          <el-button type="text" v-roles:action.remove="['super-admin']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -29,17 +29,17 @@
 
   export default {
     data: () => ({
-      listLoading: false,
+      listLoading: false
     }),
 
     computed: {
       ...mapState({
-        allRoles: state => state.user.roles,
-      }),
+        allRoles: state => state.user.roles
+      })
     },
 
     methods: {
-      fetchRoles () {
+      fetchRoles() {
         if (!this.allRoles || this.allRoles.length <= 0) {
           this.listLoading = true
           return this.$store
@@ -52,11 +52,11 @@
               this.$message.error(err.message || '角色数据拉取失败')
             })
         }
-      },
+      }
     },
 
-    created () {
+    created() {
       this.fetchRoles()
-    },
+    }
   }
 </script>

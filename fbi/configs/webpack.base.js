@@ -5,25 +5,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const AutoDllPlugin = require('autodll-webpack-plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
-const dataForCompile = require('./data-for-compile')
+const eslintConfig = require('./eslint.config')
+const opts = require('../helpers/options')()
 
 const noop = function () {}
-const opts = ctx.options
 const root = process.cwd()
-let templateFilepath = path.join(
-  root,
-  opts.paths.public || 'public',
-  'index.html'
-)
+let templateFilepath = path.join(root, opts.paths.public || 'public', 'index.html')
 if (!fs.existsSync(templateFilepath)) {
   templateFilepath = templateFilepath.replace('.html', '.ejs')
 }
 
-const templateData = dataForCompile(false)
-const webpackData = dataForCompile()
-
-const devModulesPath =
-  ctx.nodeModulesPaths[1] || path.join(root, './node_modules')
+const devModulesPath = ctx.nodeModulesPaths[1] || path.join(root, './node_modules')
 
 // Babel
 const babelOptions = require('../helpers/babel-options')(
@@ -32,10 +24,7 @@ const babelOptions = require('../helpers/babel-options')(
     {
       babelrc: false,
       cacheDirectory: true,
-      plugins: [
-        '@babel/plugin-syntax-dynamic-import',
-        'babel-plugin-transform-vue-jsx'
-      ]
+      plugins: ['@babel/plugin-syntax-dynamic-import', 'babel-plugin-transform-vue-jsx']
     },
     opts.scripts.babel || {}
   ),
@@ -144,11 +133,11 @@ const config = {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin(webpackData),
+    new webpack.DefinePlugin(ctx.env.stringifyData),
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       inject: true,
-      templateParameters: templateData,
+      templateParameters: ctx.env.data,
       template: templateFilepath,
       filename: '../index.html',
       cache: true
@@ -177,41 +166,8 @@ if (opts.lint.scripts.enable) {
     test: /\.(vue|js)$/,
     loader: 'eslint-loader',
     enforce: 'pre',
-    exclude: file =>
-      opts.lint.scripts.exclude.some(item => new RegExp(item).test(file)),
-    options: ctx.utils.assign(
-      {},
-      {
-        cache: true,
-        root: true,
-        parser: 'babel-eslint',
-        extends: 'eslint-config-standard',
-        formatter: require('eslint-friendly-formatter'),
-        plugins: ['html'],
-        parserOptions: {
-          ecmaVersion: 8,
-          sourceType: 'module',
-          ecmaFeatures: {
-            experimentalObjectRestSpread: true
-          }
-        },
-        env: {
-          browser: true
-        },
-        rules: {
-          // rules docs: https://standardjs.com/rules.html
-          semi: ['error', 'never'],
-          indent: [
-            'error',
-            2,
-            {
-              SwitchCase: 1
-            }
-          ]
-        }
-      },
-      opts.lint.scripts.options
-    )
+    exclude: file => opts.lint.scripts.exclude.some(item => new RegExp(item).test(file)),
+    options: Object.assign({}, eslintConfig, opts.lint.scripts.options)
   })
 }
 

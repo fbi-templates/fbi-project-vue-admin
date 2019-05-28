@@ -46,41 +46,33 @@
 
     components: {
       DraggableList,
-      DraggablePanel,
+      DraggablePanel
     },
 
-    data () {
+    data() {
       return {
         options: {
-          group: 'mission',
+          group: 'mission'
         },
         panelData: {
           one: [
             { name: 'Mission', id: 1 },
             { name: 'Mission', id: 2 },
             { name: 'Mission', id: 3 },
-            { name: 'Mission', id: 4 },
+            { name: 'Mission', id: 4 }
           ],
-          two: [
-            { name: 'Mission', id: 5 },
-            { name: 'Mission', id: 6 },
-            { name: 'Mission', id: 7 },
-          ],
-          three: [
-            { name: 'Mission', id: 8 },
-            { name: 'Mission', id: 9 },
-            { name: 'Mission', id: 10 },
-          ],
+          two: [{ name: 'Mission', id: 5 }, { name: 'Mission', id: 6 }, { name: 'Mission', id: 7 }],
+          three: [{ name: 'Mission', id: 8 }, { name: 'Mission', id: 9 }, { name: 'Mission', id: 10 }]
         },
         listData: {
           left: [],
-          right: [],
-        },
+          right: []
+        }
       }
     },
 
     methods: {
-      fetchData () {
+      fetchData() {
         this.$ajax
           .get('/articles')
           .then(res => {
@@ -96,12 +88,12 @@
             this.loading = false
             this.$message.error(err.message || '数据拉取失败')
           })
-      },
+      }
     },
 
-    created () {
+    created() {
       this.fetchData()
-    },
+    }
   }
 </script>
 

@@ -19,8 +19,7 @@ export default [
       {
         path: 'list',
         name: 'userList',
-        component: () =>
-          import('@/views/user/List' /* webpackChunkName: "user" */),
+        component: () => import('@/views/user/List' /* webpackChunkName: "user" */),
         meta: {
           icon: 'user'
         }
@@ -28,8 +27,7 @@ export default [
       {
         path: 'role',
         name: 'userRole',
-        component: () =>
-          import('@/views/user/Roles' /* webpackChunkName: "user" */),
+        component: () => import('@/views/user/Roles' /* webpackChunkName: "user" */),
         meta: {
           icon: 'role'
         }

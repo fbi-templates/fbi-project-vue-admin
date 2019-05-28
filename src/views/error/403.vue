@@ -9,7 +9,7 @@
   export default {
     name: 'Error403',
 
-    created () {
+    created() {
       this.$store.dispatch('user/hasLogin').then(hasLogin => {
         if (hasLogin) {
           const redirectTo = this.$route.query.redirect
@@ -19,7 +19,7 @@
           }
         }
       })
-    },
+    }
   }
 </script>
 

@@ -8,9 +8,9 @@
     </p>
     <div class="icons-wrapper">
       <div
-        v-for="item of icons"
         :key="item"
         @click="handleClipboard(generateIconCode(item), $event)"
+        v-for="item of icons"
       >
         <el-tooltip placement="top">
           <div slot="content">{{ generateIconCode(item) }}</div>
@@ -31,7 +31,7 @@
     name: 'Icons',
 
     computed: {
-      icons () {
+      icons() {
         const req = require.context('@/assets/svg', false, /\.svg$/)
         const requireAll = requireContext => requireContext.keys()
 
@@ -40,17 +40,17 @@
         return requireAll(req).map(i => {
           return i.match(re)[1]
         })
-      },
+      }
     },
 
     methods: {
-      generateIconCode (symbol) {
+      generateIconCode(symbol) {
         return `<svg-icon icon-class="${symbol}"></svg-icon>`
       },
-      handleClipboard (text, event) {
+      handleClipboard(text, event) {
         clipboard(text, event)
-      },
-    },
+      }
+    }
   }
 </script>
 

@@ -1,13 +1,13 @@
 <template>
   <section>
-    <div class="sign-btn" @click="wechatHandleClick('wechat')" title="微信">
+    <div @click="wechatHandleClick('wechat')" class="sign-btn" title="微信">
       <span class="wx-svg-container">
-        <svg-icon icon-class="wechat" class="icon"/>
+        <svg-icon class="icon" icon-class="wechat"/>
       </span>
     </div>
-    <div class="sign-btn" @click="tencentHandleClick('tencent')" title="QQ">
+    <div @click="tencentHandleClick('tencent')" class="sign-btn" title="QQ">
       <span class="qq-svg-container">
-        <svg-icon icon-class="qq" class="icon"/>
+        <svg-icon class="icon" icon-class="qq"/>
       </span>
     </div>
   </section>
@@ -19,7 +19,7 @@
   export default {
     name: 'Social',
     methods: {
-      wechatHandleClick (thirdpart) {
+      wechatHandleClick(thirdpart) {
         alert('ok')
         // this.$store.commit('SET_AUTH_TYPE', thirdpart)
         // const appid = 'xxxxx'
@@ -27,7 +27,7 @@
         // const url = 'https://open.weixin.qq.com/connect/qrconnect?appid=' + appid + '&redirect_uri=' + redirect_uri + '&response_type=code&scope=snsapi_login#wechat_redirect'
         // openWindow(url, thirdpart, 540, 540)
       },
-      tencentHandleClick (thirdpart) {
+      tencentHandleClick(thirdpart) {
         alert('ok')
         // this.$store.commit('SET_AUTH_TYPE', thirdpart)
         // const client_id = 'xxxxx'

@@ -14,8 +14,7 @@ export default [
       {
         path: 'icon',
         name: 'icon',
-        component: () =>
-          import('@/examples/icon' /* webpackChunkName: "examples" */),
+        component: () => import('@/examples/icon' /* webpackChunkName: "examples" */),
         meta: {
           icon: 'icon'
         }
@@ -23,8 +22,7 @@ export default [
       {
         path: 'form',
         name: 'form',
-        component: () =>
-          import('@/examples/form' /* webpackChunkName: "examples" */),
+        component: () => import('@/examples/form' /* webpackChunkName: "examples" */),
         meta: {
           icon: 'form'
         }
@@ -32,8 +30,7 @@ export default [
       {
         path: 'table',
         name: 'table',
-        component: () =>
-          import('@/examples/table' /* webpackChunkName: "examples" */),
+        component: () => import('@/examples/table' /* webpackChunkName: "examples" */),
         meta: {
           icon: 'table'
         }
@@ -41,8 +38,7 @@ export default [
       {
         path: 'draggable',
         name: 'draggable',
-        component: () =>
-          import('@/examples/draggable' /* webpackChunkName: "examples" */),
+        component: () => import('@/examples/draggable' /* webpackChunkName: "examples" */),
         meta: {
           icon: 'drag'
         }
@@ -50,8 +46,7 @@ export default [
       {
         path: 'editor',
         name: 'editor',
-        component: () =>
-          import('@/examples/editor' /* webpackChunkName: "examples" */),
+        component: () => import('@/examples/editor' /* webpackChunkName: "examples" */),
         meta: {
           icon: 'edit'
         }
@@ -59,8 +54,7 @@ export default [
       {
         path: 'markdown',
         name: 'markdown',
-        component: () =>
-          import('@/examples/markdown' /* webpackChunkName: "examples" */),
+        component: () => import('@/examples/markdown' /* webpackChunkName: "examples" */),
         meta: {
           icon: 'markdown'
         }
@@ -68,8 +62,7 @@ export default [
       {
         path: 'upload',
         name: 'upload',
-        component: () =>
-          import('@/examples/upload' /* webpackChunkName: "examples" */),
+        component: () => import('@/examples/upload' /* webpackChunkName: "examples" */),
         meta: {
           icon: 'upload'
         }
@@ -77,8 +70,7 @@ export default [
       {
         path: 'nested',
         name: 'nested',
-        component: () =>
-          import('@/examples/nested' /* webpackChunkName: "examples" */),
+        component: () => import('@/examples/nested' /* webpackChunkName: "examples" */),
         meta: {
           icon: 'nested',
           // 该菜单项是否路由 (适用于菜单分组标题强制生成链接)
@@ -88,16 +80,14 @@ export default [
           {
             path: 'level-1',
             name: 'level-1',
-            component: () =>
-              import('@/examples/nested/menu1-1' /* webpackChunkName: "examples" */),
+            component: () => import('@/examples/nested/menu1-1' /* webpackChunkName: "examples" */),
             meta: {},
             children: []
           },
           {
             path: 'level-2',
             name: 'level-2',
-            component: () =>
-              import('@/examples/nested/menu1-2' /* webpackChunkName: "examples" */),
+            component: () => import('@/examples/nested/menu1-2' /* webpackChunkName: "examples" */),
             meta: {},
             children: [
               {

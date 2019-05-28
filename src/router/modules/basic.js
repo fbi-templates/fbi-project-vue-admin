@@ -18,8 +18,7 @@ export default [
       {
         path: 'dashboard',
         name: 'dashboard',
-        component: () =>
-          import('@/views/dashboard' /* webpackChunkName: "dashboard" */)
+        component: () => import('@/views/dashboard' /* webpackChunkName: "dashboard" */)
       }
     ]
   },
@@ -35,8 +34,7 @@ export default [
     children: [
       {
         path: 'index',
-        component: () =>
-          import('@/views/settings' /* webpackChunkName: "settings" */),
+        component: () => import('@/views/settings' /* webpackChunkName: "settings" */),
         name: 'settings',
         meta: {
           icon: 'settings',
@@ -56,8 +54,7 @@ export default [
     children: [
       {
         path: 'error-403',
-        component: () =>
-          import('@/views/error/403' /* webpackChunkName: "error" */),
+        component: () => import('@/views/error/403' /* webpackChunkName: "error" */),
         name: '403',
         meta: {
           noCache: true
@@ -65,8 +62,7 @@ export default [
       },
       {
         path: '404',
-        component: () =>
-          import('@/views/error/404' /* webpackChunkName: "error" */),
+        component: () => import('@/views/error/404' /* webpackChunkName: "error" */),
         name: '404',
         meta: {
           noCache: true

@@ -3,11 +3,14 @@
     <div :style="{width:width1}" class="draggable-wrap">
       <h3>{{ list1Title }}</h3>
       <draggable :list="list1" :options="{group:'article'}" class="dragArea">
-        <div v-for="element in list1" :key="element.id" class="list-complete-item">
+        <div :key="element.id" class="list-complete-item" v-for="element in list1">
           <div class="list-complete-item-handle">[{{ element.author }}] {{ element.title }}</div>
           <div style="position:absolute;right:0px;">
-            <span style="float: right ;margin-top: -20px;margin-right:5px;" @click="deleteEle(element)">
-              <i style="color:#ff4949" class="el-icon-delete" />
+            <span
+              @click="deleteEle(element)"
+              style="float: right ;margin-top: -20px;margin-right:5px;"
+            >
+              <i class="el-icon-delete" style="color:#ff4949"/>
             </span>
           </div>
         </div>
@@ -16,8 +19,11 @@
     <div :style="{width:width2}" class="draggable-wrap">
       <h3>{{ list2Title }}</h3>
       <draggable :list="filterList2" :options="{group:'article'}" class="dragArea">
-        <div v-for="element in filterList2" :key="element.id" class="list-complete-item">
-          <div class="list-complete-item-handle2" @click="pushEle(element)"> [{{ element.author }}] {{ element.title }}</div>
+        <div :key="element.id" class="list-complete-item" v-for="element in filterList2">
+          <div
+            @click="pushEle(element)"
+            class="list-complete-item-handle2"
+          >[{{ element.author }}] {{ element.title }}</div>
         </div>
       </draggable>
     </div>
@@ -37,30 +43,30 @@
         type: Array,
         default() {
           return []
-        },
+        }
       },
       list2: {
         type: Array,
         default() {
           return []
-        },
+        }
       },
       list1Title: {
         type: String,
-        default: 'list1',
+        default: 'list1'
       },
       list2Title: {
         type: String,
-        default: 'list2',
+        default: 'list2'
       },
       width1: {
         type: String,
-        default: '48%',
+        default: '48%'
       },
       width2: {
         type: String,
-        default: '48%',
-      },
+        default: '48%'
+      }
     },
 
     computed: {
@@ -71,7 +77,7 @@
           }
           return false
         })
-      },
+      }
     },
 
     methods: {
@@ -95,8 +101,8 @@
       },
       pushEle(ele) {
         this.list1.push(ele)
-      },
-    },
+      }
+    }
   }
 </script>
 

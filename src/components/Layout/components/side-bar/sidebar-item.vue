@@ -1,76 +1,92 @@
 <template>
-  <div v-if="!item.hidden && item.children" class="menu-wrapper">
+  <div class="menu-wrapper" v-if="!item.hidden && item.children">
     <!-- 只有一个子节点、没有子节点 -->
     <template
-      v-if="hasOneShowingChild(item.children) && !onlyOneChild.children && !item.alwaysShow"
+      v-if="hasOneShowingChild(item.children, item) && (!onlyOneChild.children || onlyOneChild.noShowingChildren) && !item.alwaysShow"
     >
-      <a :href="onlyOneChild.path" target="_blank" @click="clickLink(onlyOneChild.path, $event)">
+      <a
+        :href="onlyOneChild.path"
+        @click="clickLink(onlyOneChild.path, $event)"
+        target="_blank"
+        v-if="onlyOneChild.meta"
+      >
         <el-menu-item
-          :index="resolvePath(onlyOneChild.path)"
           :class="{'submenu-title-noDropdown': !isNest}"
+          :index="resolvePath(onlyOneChild.path)"
+          v-if="sidebar.opened"
         >
           <menu-item
-            v-if="onlyOneChild.meta"
+            :extra="onlyOneChild.meta.extra"
             :icon="onlyOneChild.meta.icon"
             :title="generateTitle(onlyOneChild.name)"
-            :extra="onlyOneChild.meta.extra"
           ></menu-item>
         </el-menu-item>
+        <el-tooltip
+          :content="generateTitle(onlyOneChild.name)"
+          class="item"
+          effect="dark"
+          placement="right"
+          v-else
+        >
+          <el-menu-item
+            :class="{'submenu-title-noDropdown': !isNest}"
+            :index="resolvePath(onlyOneChild.path)"
+          >
+            <menu-item :extra="onlyOneChild.meta.extra" :icon="onlyOneChild.meta.icon"></menu-item>
+          </el-menu-item>
+        </el-tooltip>
       </a>
     </template>
 
-    <el-submenu v-else :index="item.name || item.path">
+    <el-submenu :index="item.name || item.path" popper-append-to-body v-else>
       <!-- menu title -->
-      <template slot="title">
+      <template slot="title" v-if="item.meta">
         <!-- title也路由 -->
         <a
-          v-if="item.meta && item.meta.route"
           :href="item.path"
           :key="item.name"
-          target="_blank"
           @click="clickLink(item.path, $event, basePath)"
-          class="title-link"
+          target="_blank"
+          v-if="item.meta.route"
         >
           <menu-item
-            v-if="item.meta"
+            :extra="item.meta.extra"
             :icon="item.meta.icon"
             :title="generateTitle(item.name)"
-            :extra="item.meta.extra"
           ></menu-item>
         </a>
         <!-- title不路由 -->
         <menu-item
-          v-else-if="item.meta"
+          :extra="item.meta.extra"
           :icon="item.meta.icon"
           :title="generateTitle(item.name)"
-          :extra="item.meta.extra"
+          v-else
         ></menu-item>
       </template>
 
       <template v-for="child in item.children">
         <template v-if="!child.hidden">
           <sidebar-item
-            v-if="child.children && child.children.length > 0"
+            :base-path="resolvePath(child.path)"
             :is-nest="true"
             :item="child"
             :key="child.path"
-            :base-path="resolvePath(child.path)"
             class="nest-menu"
+            v-if="child.children && child.children.length > 0"
           />
 
           <a
-            v-else
             :href="child.path"
             :key="child.name"
-            target="_blank"
             @click="clickLink(child.path, $event)"
+            target="_blank"
+            v-else-if="child.meta"
           >
             <el-menu-item :index="resolvePath(child.path)">
               <menu-item
-                v-if="child.meta"
+                :extra="child.meta.extra"
                 :icon="child.meta.icon"
                 :title="generateTitle(child.name)"
-                :extra="child.meta.extra"
               ></menu-item>
             </el-menu-item>
           </a>
@@ -82,40 +98,47 @@
 
 <script>
   import path from 'path'
+  import { mapState } from 'vuex'
   import { validateURL } from '@/utils/validate'
   import { generateTitle } from '@/utils/i18n'
   import MenuItem from './menu-item'
+  import FixiOSBug from './fix-iOS-bug'
 
   export default {
     name: 'SidebarItem',
 
     components: { MenuItem },
 
+    mixins: [FixiOSBug],
+
     props: {
-      // route配置json
       item: {
         type: Object,
-        required: true,
+        required: true
       },
       isNest: {
         type: Boolean,
-        default: false,
+        default: false
       },
       basePath: {
         type: String,
-        default: '',
+        default: ''
       }
     },
 
-    data () {
-      return {
-        onlyOneChild: null,
-      }
+    data: () => ({
+      onlyOneChild: null
+    }),
+
+    computed: {
+      ...mapState({
+        sidebar: state => state.app.sidebar
+      })
     },
 
     methods: {
       generateTitle,
-      hasOneShowingChild (children) {
+      hasOneShowingChild(children = [], parent) {
         const showingChildren = children.filter(item => {
           if (item.hidden) {
             return false
@@ -125,21 +148,30 @@
             return true
           }
         })
+
+        // When there is only one child router, the child router is displayed by default
         if (showingChildren.length === 1) {
           return true
         }
+
+        // Show parent if there are no child router to display
+        if (showingChildren.length === 0) {
+          this.onlyOneChild = { ...parent, path: '', noShowingChildren: true }
+          return true
+        }
+
         return false
       },
 
-      resolvePath (routePath) {
+      resolvePath(routePath) {
         return path.resolve(this.basePath, routePath)
       },
 
-      isExternalLink (routePath) {
+      isExternalLink(routePath) {
         return validateURL(routePath)
       },
 
-      clickLink (routePath, e, exact) {
+      clickLink(routePath, e, exact) {
         if (!this.isExternalLink(routePath)) {
           e.preventDefault()
 
@@ -150,7 +182,7 @@
             this.$router.push(path)
           }
         }
-      },
-    },
+      }
+    }
   }
 </script>

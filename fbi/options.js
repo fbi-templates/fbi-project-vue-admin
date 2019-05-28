@@ -17,9 +17,7 @@ module.exports = {
     // 页面入口文件及其他需要拷贝到dist目录的文件放在这个目录
     public: 'public',
     // 静态资源构建目标目录
-    assets: 'assets',
-    // 生产环境cdn
-    cdn: ''
+    assets: 'assets'
   },
 
   // 开发服务器配置
@@ -45,7 +43,9 @@ module.exports = {
     // 所有环境
     all: {
       // 网站title
-      SITE_TITLE: 'Admin System'
+      SITE_TITLE: 'Admin System',
+      SITE_LOGO: 'https://vuejs.org/images/logo.png',
+      ROUTE_BASE: '/'
     },
     // 开发环境 `fbi s`
     dev: {
@@ -58,7 +58,8 @@ module.exports = {
     },
     // 生产环境 `fbi b`
     prod: {
-      APIROOT: 'https://prod.yourdomain.com'
+      APIROOT: 'https://prod.yourdomain.com',
+      publicPath: '/assets/'
     }
   },
 
@@ -113,7 +114,7 @@ module.exports = {
           // https://github.com/babel/babel/tree/master/packages/babel-preset-env#options
           '@babel/preset-env',
           {
-            targets,
+            targets: targets.browsers,
             corejs: '2',
             useBuiltIns: 'entry'
             // debug: true
@@ -121,7 +122,7 @@ module.exports = {
         ]
       ]
     },
-    //  https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+    //  https://github.com/webpack-contrib/terser-webpack-plugin#options
     uglify: {
       cache: true,
       parallel: true,

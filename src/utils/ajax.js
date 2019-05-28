@@ -8,9 +8,7 @@ const instance = axios.create({
 })
 
 if (window.localStorage.getItem('token')) {
-  axios.defaults.headers.common[
-    'Authorization'
-  ] = `Bearer ${window.localStorage.getItem('token')}`
+  axios.defaults.headers.common['Authorization'] = `Bearer ${window.localStorage.getItem('token')}`
 }
 
 // respone拦截器
