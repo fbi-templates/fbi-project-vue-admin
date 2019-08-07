@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.7.1"></a>
+## [1.7.1](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v1.7.0...v1.7.1) (2019-08-07)
+
+
+### Bug Fixes
+
+* 'Cyclic dependency', HtmlWebpackPlugin chunksSortMode=none ([90f21fb](https://github.com/fbi-templates/fbi-project-vue-admin/commit/90f21fb))
+
+
+
 <a name="1.7.0"></a>
 # [1.7.0](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v1.6.0...v1.7.0) (2019-05-28)
 
