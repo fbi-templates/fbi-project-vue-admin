@@ -140,7 +140,8 @@ const config = {
       templateParameters: ctx.env.data,
       template: templateFilepath,
       filename: '../index.html',
-      cache: true
+      cache: true,
+      chunksSortMode: 'none'
     }),
     Array.isArray(opts.dllEntries)
       ? new AutoDllPlugin({
