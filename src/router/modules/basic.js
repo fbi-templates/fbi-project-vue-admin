@@ -71,19 +71,6 @@ export default [
     ]
   },
   {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        name: 'externalLink',
-        path: 'https://github.com/fbi-templates/fbi-project-vue-admin',
-        meta: {
-          icon: 'link'
-        }
-      }
-    ]
-  },
-  {
     path: '*',
     redirect: {
       name: '404'

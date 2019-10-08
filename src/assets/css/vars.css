@@ -21,11 +21,11 @@ $color-text-regular: #666;
 $color-text-secondary: #666;
 $color-text-placeholder: #999;
 
-$border-color-base: #ccc;
-$border-color-light: #aaa;
+$border-color-base: $color-light2;
+$border-color-light: $color-light1;
 
-$background-color-base: #ccc;
-$background-color-light: #aaa;
+$background-color-base: $color-light2;
+$background-color-light: $color-light1;
 
 /* font size */
 $font-size-extra-large: 0.36rem;

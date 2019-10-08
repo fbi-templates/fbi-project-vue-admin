@@ -22,9 +22,25 @@ export default [
       {
         path: 'form',
         name: 'form',
-        component: () => import('@/examples/form' /* webpackChunkName: "examples" */),
+        component: () => import('@/examples/dynamic-form-demo' /* webpackChunkName: "examples" */),
         meta: {
           icon: 'form'
+        }
+      },
+      {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/examples/dynamic-list-demo' /* webpackChunkName: "examples" */),
+        meta: {
+          icon: 'list'
+        }
+      },
+      {
+        path: 'info',
+        name: 'info',
+        component: () => import('@/examples/dynamic-info-demo' /* webpackChunkName: "examples" */),
+        meta: {
+          icon: 'component'
         }
       },
       {
@@ -107,6 +123,19 @@ export default [
                 children: []
               }
             ]
+          }
+        ]
+      },
+      {
+        path: 'external-link',
+        component: Layout,
+        children: [
+          {
+            name: 'externalLink',
+            path: 'https://github.com/fbi-templates/fbi-project-vue-admin',
+            meta: {
+              icon: 'link'
+            }
           }
         ]
       }

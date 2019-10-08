@@ -5,21 +5,27 @@ export default {
   route: {
     dashboard: 'Dashboard',
     settings: 'Settings',
+
+    // example
+    example: 'Example',
     icon: 'Icon',
+    form: 'Dynamic Form',
+    list: 'Dynamic List',
+    info: 'Dynamic Info',
     editor: 'Editor',
     markdown: 'Markdown',
     upload: 'Upload',
     backToTop: 'BackToTop',
     draggable: 'Draggable',
-    charts: 'Charts',
-    example: 'Example',
-    table: 'Table',
-    form: 'Form',
+    externalLink: 'External Link',
+    nested: 'Nested Routes',
+
+    // user
     user: 'User',
     userList: 'User List',
     userRole: 'User Role',
-    externalLink: 'External Link',
-    nested: 'Nested Routes',
+
+    // error
     403: '403',
     404: '404'
   },
