@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v1.7.1...v2.0.0) (2019-10-08)
+
+
+### Features
+
+* update dependencies;add global components ([e957512](https://github.com/fbi-templates/fbi-project-vue-admin/commit/e957512))
+* update dependencies;add global components; ([27cfba4](https://github.com/fbi-templates/fbi-project-vue-admin/commit/27cfba4))
+
+
+### BREAKING CHANGES
+
+* update dependencies;add global components
+
+
+
 <a name="1.7.1"></a>
 ## [1.7.1](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v1.7.0...v1.7.1) (2019-08-07)
 
