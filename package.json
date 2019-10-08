@@ -109,8 +109,7 @@
   "homepage": "https://github.com/fbi-templates/fbi-project-vue-admin#readme",
   "fbi": {
     "template": {
-      "name": "fbi-project-vue-admin",
-      "version": "v1.7.1"
+      "name": "fbi-project-vue-admin"
     },
     "tasks": {
       "build": {
