@@ -6,20 +6,8 @@ module.exports = {
   failOnError: true,
   emitWarning: true,
   fix: true,
-  // extends: ['eslint-config-standard'],
-  // parser: 'babel-eslint',
   eslintPath: require.resolve('eslint'),
-  formatter: require('eslint/lib/formatters/codeframe'),
-  // parserOptions: {
-  //   ecmaVersion: 8,
-  //   sourceType: 'module',
-  //   ecmaFeatures: {
-  //     experimentalObjectRestSpread: true
-  //   }
-  // },
-  // env: {
-  //   browser: true
-  // },
+  formatter: require('eslint/lib/cli-engine/formatters/codeframe'),
   extends: ['plugin:vue/essential'],
   plugins: ['eslint-plugin-vue'],
   // https://eslint.vuejs.org/user-guide/#what-is-the-use-the-latest-vue-eslint-parser-error
