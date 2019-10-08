@@ -1,200 +1,222 @@
 <template>
   <div class="app-container">
-    <el-table
-      :data="currentList"
-      element-loading-text="Loading"
-      fit
-      highlight-current-row
-      v-loading="listLoading"
+    <dynamic-list
+      :loading="listLoading"
+      :pager="listPager"
+      :schema="listSchema"
+      @fetch-list="fetchList"
+      v-model="listData"
     >
-      <el-table-column align="center" label="序号" width="95">
-        <template slot-scope="scope">{{ scope.$index }}</template>
-      </el-table-column>
-      <el-table-column label="用户名" prop="username" width="200"></el-table-column>
-      <el-table-column label="角色" width="200">
-        <template slot-scope="scope">
-          <el-tag :key="role" class="tag-role" v-for="role of scope.row.roles">{{ role }}</el-tag>
+      <el-table-column width="200">
+        <template v-slot:header>操作</template>
+        <template v-slot="{ row, column, $index }">
+          <el-button @click="onEditClick(row)" type="primary">编辑</el-button>
+          <el-button @click="onDelClick(row)" type="danger">删除</el-button>
         </template>
       </el-table-column>
-      <el-table-column label="邮箱" show-overflow-tooltip>
-        <template slot-scope="scope">{{ scope.row.email }}</template>
-      </el-table-column>
-      <el-table-column label="状态" width="120">
-        <template slot-scope="scope">
-          <el-tag
-            :type="scope.row.status ? 'success' : 'info'"
-          >{{ scope.row.status ? '已启用' : '已禁用' }}</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column label="创建时间" width="180">
-        <template slot-scope="scope">{{ scope.row.createdAt | datetimeFormat }}</template>
-      </el-table-column>
-      <el-table-column align="center" class-name="small-padding fixed-width" label="操作" width="150">
-        <template slot-scope="scope">
-          <el-button @click="onEditClick(scope.row)" type="text">编辑</el-button>
-          <el-button
-            @click="onDelClick(scope.row)"
-            type="text"
-            v-if="scope.row.status!='deleted'"
-          >删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-
-    <div class="pagination-container">
-      <el-pagination
-        :current-page="listQuery.page"
-        :page-size="listQuery.limit"
-        :page-sizes="[10, 20, 50, 100, 200, 500]"
-        :total="total"
-        @current-change="handleCurrentChange"
-        @size-change="handleSizeChange"
-        background
-        layout="total, sizes, prev, pager, next, jumper"
-      />
-    </div>
+    </dynamic-list>
 
     <el-dialog :visible.sync="dialogTableVisible" title="用户编辑" v-el-drag-dialog v-if="formData">
-      <el-form :model="formData" label-width="120px">
-        <el-form-item label="用户名">
-          <el-input v-model="formData.username"></el-input>
-        </el-form-item>
-        <el-form-item label="角色">
-          <el-checkbox-group v-model="formData.roles">
-            <el-checkbox :key="role.id" :label="role.name" name="type" v-for="role of allRoles"></el-checkbox>
-          </el-checkbox-group>
-        </el-form-item>
-        <el-form-item label="状态">
-          <el-radio-group v-model="formData.status">
-            <el-radio :label="1">已启用</el-radio>
-            <el-radio :label="0">已禁用</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="onSubmit" type="primary">保存</el-button>
-          <el-button @click="onCancel">取消</el-button>
-        </el-form-item>
-      </el-form>
+      <dynamic-form
+        :loading="formLoading"
+        :schema="formSchema"
+        @reset="formReset"
+        @submit="formSubmit"
+        label-width="80px"
+        max-width="600px"
+        v-model="formData"
+      ></dynamic-form>
     </el-dialog>
   </div>
 </template>
 
 <script>
   import { mapState } from 'vuex'
+  import elDragDialog from '@/components/el-drag-dialog'
 
-  import elDragDialog from '@/common/el-drag-ialog'
+  let testData = []
 
   export default {
-    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          published: 'success',
-          draft: 'gray',
-          deleted: 'danger'
-        }
-        return statusMap[status]
-      }
-    },
-
     directives: { elDragDialog },
 
     data: () => ({
-      list: null,
-      currentList: null,
-      listLoading: false,
+      // list: null,
+      // currentList: null,
+      // listLoading: false,
       dialogTableVisible: false,
-      total: 0,
-      listQuery: {
-        page: 0,
-        limit: 50
+      // total: 0,
+      // listQuery: {
+      //   page: 0,
+      //   limit: 50
+      // },
+      // formData: null,
+
+      // list
+      listData: [],
+      listSchema: [
+        {
+          prop: 'username',
+          label: '用户名'
+        },
+        {
+          label: '角色',
+          component: {
+            props: ['scope'],
+            template: `<div><el-tag :key="role" class="tag-role" v-for="role of scope.row.roles">{{ role }}</el-tag></div>`
+          }
+        },
+        {
+          prop: 'email',
+          label: '邮箱'
+        },
+
+        {
+          prop: 'date',
+          label: '状态',
+          formatter: row => (row.status === 'false' ? '已启用' : '已禁用')
+        }
+      ],
+      listPager: {
+        total: 0,
+        currentPage: 1,
+        pageSize: 10,
+        pageSizes: [10, 30, 50],
+        url: false,
+        // 采用自定义分页
+        type: 'custom',
+        hideOnSinglePage: false
       },
-      formData: null
+      listLoading: false,
+
+      // form
+      formData: {
+        username: '',
+        roles: [],
+        status: true
+      },
+      // formSchema: ,
+      formLoading: false
     }),
 
     computed: {
-      tableHeight() {
-        return window.innerHeight - 50 - 34 - 92
-      },
       ...mapState({
         allRoles: state => state.user.roles
-      })
+      }),
+      formSchema() {
+        return [
+          {
+            el: 'input',
+            label: '用户名',
+            prop: 'username'
+          },
+          {
+            el: 'checkbox-group',
+            label: '角色',
+            prop: 'roles',
+            optionEl: 'checkbox',
+            options: this.allRoles.map(item => ({
+              label: item.name,
+              value: item.name
+            }))
+          },
+          {
+            el: 'radio-group',
+            label: '状态',
+            prop: 'status',
+            optionEl: 'radio', // 'radio-button'
+            options: [
+              {
+                label: 'true',
+                value: '已启用'
+              },
+              {
+                label: 'false',
+                value: '已禁用'
+              }
+            ]
+          }
+        ]
+      }
     },
 
-    created() {
-      this.fetchUsers()
+    mounted() {
+      this.fetchRoles()
     },
 
     methods: {
-      fetchUsers() {
+      fetchList(pagerOptions) {
         this.listLoading = true
-        this.$ajax
+
+        this.fetchUsers().then(() => {
+          const pager = pagerOptions || this.listPager
+          pager.total = testData.length
+          const start = (pager.currentPage - 1) * pager.pageSize
+          const end = start + pager.pageSize
+          this.listData = testData.slice(start, end)
+          this.listLoading = false
+        })
+      },
+
+      fetchUsers() {
+        if (testData && testData.length > 0) {
+          return Promise.resolve()
+        }
+
+        return this.$ajax
           .get('/users')
           .then(res => {
             const ret = res.data
             if (ret.code === 0) {
-              this.list = ret.data
-              this.listLoading = false
-              this.total = this.list.length
-              this.pager()
+              testData = ret.data
             } else {
               throw new Error(res.message)
             }
           })
           .catch(err => {
-            this.loading = false
             this.$message.error(err.message || '数据拉取失败')
           })
       },
+
       fetchRoles() {
         if (!this.allRoles || this.allRoles.length <= 0) {
           return this.$store.dispatch('user/roles')
         }
       },
+
+      formSubmit(valid, data) {
+        console.log('formSubmit', valid, data)
+        if (valid) {
+          this.formLoading = true
+          setTimeout(() => {
+            alert(JSON.stringify(data, null, 2))
+            this.formLoading = false
+          }, 1500)
+        } else {
+          alert('form data is not valid')
+        }
+      },
+
       formReset() {
         this.formData = null
       },
+
       onEditClick(user) {
-        if (this.$vrm.hasAccess(['super-admin'])) {
+        console.log({ user })
+        if (this.$vrm.hasAccess(['admin'])) {
           this.formData = user
           this.dialogTableVisible = true
-          this.fetchRoles()
         } else {
           this.$message.warning("You don't have permission")
         }
       },
+
       onDelClick(user) {
-        if (this.$vrm.hasAccess(['super-admin'])) {
+        if (this.$vrm.hasAccess(['admin'])) {
           // TODO
+          alert('user deleted')
         } else {
           this.$message.warning("You don't have permission")
         }
-      },
-      onSubmit() {
-        this.$ajax.put(`/users/${this.formData.id}`, this.formData).then(response => {
-          this.$message('保存成功!')
-          this.formData = null
-        })
-      },
-      onCancel() {
-        this.dialogTableVisible = false
-        this.formReset()
-        this.$message('已取消!')
-      },
-      handleSizeChange(val) {
-        this.listQuery.limit = val
-        // this.fetchData()
-        this.pager()
-      },
-      handleCurrentChange(val) {
-        this.listQuery.page = val
-        // this.fetchData()
-        this.pager()
-      },
-      pager() {
-        this.total = this.list.length
-        const start = this.listQuery.page * this.listQuery.limit
-        const end = start + this.listQuery.limit
-        this.currentList = this.list.slice(start, end)
       }
     }
   }

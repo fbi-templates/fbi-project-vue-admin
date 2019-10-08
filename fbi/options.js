@@ -2,7 +2,7 @@ const path = require('path')
 
 // 浏览器兼容配置 https://github.com/browserslist/browserslist#best-practices
 const targets = {
-  browsers: ['last 2 versions', 'ie >= 10']
+  browserslist: ['last 2 versions', 'ie >= 10']
 }
 
 function resolve (dir) {
@@ -114,7 +114,7 @@ module.exports = {
           // https://github.com/babel/babel/tree/master/packages/babel-preset-env#options
           '@babel/preset-env',
           {
-            targets: targets.browsers,
+            targets: targets.browserslist,
             corejs: '2',
             useBuiltIns: 'entry'
             // debug: true
@@ -151,7 +151,11 @@ module.exports = {
 
       // https://github.com/postcss/autoprefixer#options
       // https://github.com/ai/browserslist#queries
-      autoprefixer: targets
+      autoprefixer: { overrideBrowserslist: targets.browserslist },
+      // https://github.com/songsiqi/px2rem-postcss
+      'postcss-px2rem': {
+        remUnit: 100
+      }
     }
   },
 

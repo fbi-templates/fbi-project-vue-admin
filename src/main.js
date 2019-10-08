@@ -2,19 +2,19 @@ import '@babel/polyfill'
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import VRM from 'vue-role-manager'
-
+import '@/utils/rem'
 import 'normalize.css/normalize.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/main.css'
 
 import router from '@/router'
 import store from '@/store'
-
-import '@/common/icons'
-import i18n from '@/common/lang'
+import i18n from '@/global/lang'
 import App from '@/App.vue'
 import ajax from '@/utils/ajax'
-import * as filters from '@/common/filters'
+import * as filters from '@/global/filters'
+import '@/global/components'
+import configs from '@/configs'
 
 // Vue config
 Vue.config.productionTip = false
@@ -38,9 +38,12 @@ Vue.prototype.$ajax = ajax
 
 // ElementUI
 Vue.use(ElementUI, {
-  size: localStorage.getItem('size') || 'small',
+  size: localStorage.getItem('size') || configs.UIDefaultSize,
   i18n: (key, value) => i18n.t(key, value)
 })
+
+// Event bus
+Vue.prototype.$eventBus = new Vue()
 
 store.dispatch('user/current').then(userinfo => {
   // Important!!

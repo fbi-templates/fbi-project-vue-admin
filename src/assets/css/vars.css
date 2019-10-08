@@ -1,3 +1,45 @@
+/* color */
+$color-dark0: #1d233b;
+$color-dark1: #242943;
+$color-dark2: #282e4b;
+$color-dark3: #2c3254;
+$color-dark4: #3e4879;
+
+$color-light1: #e8ecff;
+$color-light2: #acb4da;
+$color-light3: #747ca4;
+$color-light4: #49527f;
+
+$color-primary: #0f88ff;
+$color-success: #00cf83;
+$color-warning: #ff6a47;
+$color-danger: #ff444f;
+$color-info: #999;
+
+$color-text-primary: #333;
+$color-text-regular: #666;
+$color-text-secondary: #666;
+$color-text-placeholder: #999;
+
+$border-color-base: #ccc;
+$border-color-light: #aaa;
+
+$background-color-base: #ccc;
+$background-color-light: #aaa;
+
+/* font size */
+$font-size-extra-large: 0.36rem;
+$font-size-large: 0.24rem;
+$font-size-medium: 0.14rem;
+$font-size-base: 0.12rem;
+$font-size-small: 0.12rem;
+$font-size-extra-small: 0.1rem;
+$font-line-height-loose: 1.7;
+$font-line-height-normal: 1.5;
+$font-line-height-tight: 1.3;
+$font-line-height-no: 1;
+
+/* layout */
 $navBarHeight: 50px;
 $tagsViewHeight: 34px;
 $appTitleHeight: 50px;
@@ -5,17 +47,16 @@ $appTitleHeight: 50px;
 $sideBarWidth: 210px;
 $sideBarMinWidth: 54px;
 
-$menuBg: #304156;
-$menuHover: #263445;
-$subMenuBg: #1f2d3d;
-$subMenuHover: #001528;
+$menuBg: $color-dark1;
+$menuHover: $color-dark3;
+$subMenuBg: $color-dark2;
+$subMenuHover: $color-dark4;
 
-$menuText: #bfcbd9;
-$menuActiveText: #409eff;
-$subMenuActiveText: #f4f4f5; /* https://github.com/ElemeFE/element/issues/12951 */
+$menuText: $color-light3;
+$menuActiveText: $color-primary;
+$subMenuActiveText: $color-light1;
 
-/* color */
-
+/* exports color */
 :export {
   navBarHeight: $navBarHeight;
   tagsViewHeight: $tagsViewHeight;

@@ -35,5 +35,23 @@ export default {
    * @type {boolean} true | false
    * @description Whether show the logo in sidebar
    */
-  sidebarLogo: true
+  sidebarLogo: true,
+
+  /**
+   * @type {number}
+   * @description Large screen minimum width
+   */
+  largeScreenMinWidth: 1680,
+
+  /**
+   * @type {string} mini/small/medium
+   * @description Default size of UI components
+   */
+  UIDefaultSize: 'mini',
+
+  /**
+   * @type {string} zh/en
+   * @description Default language
+   */
+  UIDefaultLanguage: 'zh'
 }

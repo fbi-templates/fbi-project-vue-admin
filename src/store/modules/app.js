@@ -1,3 +1,5 @@
+import configs from '@/configs'
+
 const getters = {}
 
 const state = {
@@ -7,8 +9,8 @@ const state = {
     withoutAnimation: false
   },
   device: 'desktop',
-  language: localStorage.getItem('language') || 'en',
-  size: localStorage.getItem('size') || 'medium'
+  language: localStorage.getItem('language') || configs.UIDefaultLanguage,
+  size: localStorage.getItem('size') || configs.UIDefaultSize
 }
 
 const mutations = {
