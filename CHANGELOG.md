@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v2.0.2...v2.1.0) (2019-10-26)
+
+
+### Features
+
+* make webpack 'externals' configurable ([761b67e](https://github.com/fbi-templates/fbi-project-vue-admin/commit/761b67e))
+
+
+
 <a name="2.0.2"></a>
 ## [2.0.2](https://github.com/fbi-templates/fbi-project-vue-admin/compare/v2.0.1...v2.0.2) (2019-10-08)
 
