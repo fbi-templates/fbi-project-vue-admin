@@ -35,7 +35,8 @@ module.exports = {
       enable: true,
       // API 前缀，开发时应与 data.dev.APIROOT 的值相同
       prefix: '/mock-api'
-    }
+    },
+    public: resolve('public')
   },
 
   // 构建时数据 (js和public/index.ejs文件里可用)

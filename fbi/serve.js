@@ -72,6 +72,11 @@ function server (db) {
       })
     )
 
+    // serve static files
+    if (options.server.public) {
+      app.use(express.static(options.server.public))
+    }
+
     app.get('*', (req, res) => {
       const fs = devMiddleWare.fileSystem
       devMiddleWare.waitUntilValid(() => {
