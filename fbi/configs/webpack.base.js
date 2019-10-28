@@ -10,6 +10,7 @@ const opts = require('../helpers/options')()
 
 const noop = function () {}
 const root = process.cwd()
+const isProd = process.env.NODE_ENV === 'production'
 let templateFilepath = path.join(root, opts.paths.public || 'public', 'index.html')
 if (!fs.existsSync(templateFilepath)) {
   templateFilepath = templateFilepath.replace('.html', '.ejs')
@@ -60,6 +61,17 @@ const config = {
         resourceQuery: /blockType=i18n/,
         loader: '@kazupon/vue-i18n-loader'
       },
+      {
+        test: /\.worker\.js$/,
+        use: {
+          loader: 'worker-loader',
+          options: {
+            name: isProd
+              ? `${opts.scripts.workersDist || 'js/workers/'}[name]-[hash:8].js`
+              : `${opts.scripts.workersDist || 'js/workers/'}[name].js?[hash:8]`
+          }
+        }
+      },
       // this will apply to both plain `.js` files
       // AND `<script>` blocks in `.vue` files
       {
@@ -97,10 +109,7 @@ const config = {
         loader: 'url-loader',
         options: {
           limit: 5000,
-          name:
-            process.env.NODE_ENV === 'production'
-              ? 'img/[name].[hash:8].[ext]'
-              : 'img/[name].[ext]?[hash:8]'
+          name: isProd ? 'img/[name].[hash:8].[ext]' : 'img/[name].[ext]?[hash:8]'
         }
       },
       {
@@ -108,10 +117,7 @@ const config = {
         loader: 'url-loader',
         options: {
           limit: 5000,
-          name:
-            process.env.NODE_ENV === 'production'
-              ? 'media/[name].[hash:8].[ext]'
-              : 'media/[name].[ext]?[hash:8]'
+          name: isProd ? 'media/[name].[hash:8].[ext]' : 'media/[name].[ext]?[hash:8]'
         }
       },
       {
@@ -119,10 +125,7 @@ const config = {
         loader: 'url-loader',
         options: {
           limit: 5000,
-          name:
-            process.env.NODE_ENV === 'production'
-              ? 'fonts/[name].[hash:8].[ext]'
-              : 'fonts/[name].[ext]?[hash:8]'
+          name: isProd ? 'fonts/[name].[hash:8].[ext]' : 'fonts/[name].[ext]?[hash:8]'
         }
       },
       {

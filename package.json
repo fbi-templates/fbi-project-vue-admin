@@ -85,7 +85,8 @@
     "webpack": "4.41.0",
     "webpack-dev-middleware": "3.7.2",
     "webpack-hot-middleware": "2.25.0",
-    "webpack-merge": "4.2.2"
+    "webpack-merge": "4.2.2",
+    "worker-loader": "2.0.0"
   },
   "repository": {
     "type": "git",

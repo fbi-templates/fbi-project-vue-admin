@@ -135,7 +135,8 @@ module.exports = {
           drop_console: true
         }
       }
-    }
+    },
+    workersDist: 'js/workers/'
   },
 
   // https://github.com/postcss/postcss-loader#options
