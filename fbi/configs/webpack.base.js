@@ -39,6 +39,7 @@ const babelOptions = require('../helpers/babel-options')(
 
 const config = {
   target: 'web',
+  externals: opts.externals || {},
   resolve: {
     extensions: ['*', '.js', '.vue', '.css', '.json'],
     alias: opts.alias,

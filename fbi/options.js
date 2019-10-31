@@ -74,6 +74,9 @@ module.exports = {
     'vuex-router-sync': resolve('node_modules/vuex-router-sync/index.js')
   },
 
+  // https://webpack.js.org/configuration/externals/#externals
+  externals: {},
+
   // dll plugin配置
   dllEntries: false,
 
